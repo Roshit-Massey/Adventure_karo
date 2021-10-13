@@ -1,0 +1,376 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+
+:root{
+    --primary-color:#8BC43F;
+    --shadow-color:#eff8f9;
+}
+
+html, body{
+    font-family: "Poppins", sans-serif;
+    color:#4A4A4A;
+    background-color: #ffffff;
+}
+.cartzon-page-title{
+    font-size: 16px;
+    color:#4A4A4A;
+    font-weight: lighter;
+    font-family: "Poppins", sans-serif;
+} 
+
+body[data-sidebar=dark] .navbar-brand-box {
+    background-color: #FDFFFC;
+    border-right: 1px solid #ECECEC;
+    
+}
+
+#page-topbar{
+    -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+    border-bottom: 1px solid #ECECEC;
+}
+
+#sidebar-menu{
+    background-color: #ffffff;
+    border-right: 1px solid #ECECEC;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a{
+    color:#4A4A4A;
+    font-weight: lighter;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a:hover{
+    color:#4F4A4F;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li:hover{
+    background-color: #dbf0c0;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a i{
+    color:#4A4A4A;
+    font-weight: lighter;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a:hover i{
+    color:#8BC43F;
+}
+
+
+.vertical-menu #sidebar-menu ul li.mm-active .active{
+    background-color: #dbf0c0;
+}
+
+
+
+body[data-sidebar=dark] .mm-active .active{
+    color:#4a4a4a!important;
+    
+}
+body[data-sidebar=dark] .mm-active .active i{
+    color:#8BC43F!important
+}
+
+
+.mini-stat-info p{
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 0;
+    color:#4a4a4a!important;
+   
+}
+
+.mini-stat-info span{
+    color: #4c4c4c;
+}
+
+.cz-box{
+    border-bottom: 2px solid ;
+    border-radius: 10px;
+   
+}
+
+.cx-border-bottom-blue{
+    border-bottom-color: #3381ff;
+}
+
+.cx-border-bottom-orange{
+    border-bottom-color: #ff8400;
+}
+
+.cx-border-bottom-yello{
+    border-bottom-color: #003322;
+}
+
+.cx-border-bottom-green{
+    border-bottom-color: #77cf02;
+}
+
+.cz-button{
+    background-color: #75A535; 
+    color:#FFFFFF;
+}
+
+.cz-button:hover{
+    color:#FFFFFF;
+}
+
+.cz-main-text{
+    color:#4a4a4a;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+}
+.cz-h4{
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    color:#666666;
+    font-weight: lighter;
+
+}
+
+.cz-h4 span{
+    font-weight: 500;
+}
+
+.cz-box-title{
+    color: #4a4a4a;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+
+.cz-border-radius{
+    border-radius: 8px;
+}
+
+.cz-border-color{
+    border-color:#E0E0E0;
+}
+
+.cz-box-title-label, .cz-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #000000d4;
+    text-transform: uppercase; 
+    margin-top: 6px;
+    margin-right: 13px;
+    display: inline-block;
+    font-family: "Poppins", sans-serif;
+}
+
+.cz-box-title-label span{
+    display: block !;
+    float: right;
+    height: 13.33px;
+    width: 13.33px;
+    border: 1px solid var(--primary-color);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    margin-left: 8px; 
+    top: 2px;
+}
+
+.cz-box-body-l1{
+    text-transform: uppercase;
+    color: #4a4a4a;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    
+}
+
+
+.cz-box-height{
+    height: 100%;
+}
+
+.cz-bradecomb-title{
+    color: #4a4a4a;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: inherit;
+    line-height: 1.2;
+}
+
+.cz-bradecomb-sub-title{
+    font-size: 16px;
+    color: #4a4a4a;
+    font-family: inherit;
+    line-height: 1.2;
+}
+
+.cz-top-of-label{
+    text-transform: capitalize;
+    opacity: 0.7;
+    color: #4a4a4a;
+    font-size: 12px;
+    margin-bottom: 4px;
+    display: block;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+}
+
+.cz-box-label{
+    color: #4a4a4a;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #4a4a4a;
+}
+
+.cz-box-li-left{
+    color: rgba(74, 74, 74, 0.7);
+    font-size: 13px;
+    margin-bottom: 12px;
+    font-family: "Poppins", sans-serif;
+}
+
+.cz-box-li-right{
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cz-table-tr-background-color:hover{
+    background-color:#dbf0c0;
+}
+
+.cz-table-tr-left-border:hover{
+    border-left:3px solid #75A535;
+    
+}
+
+.primary-color{
+    color:#8BC43F;
+}
+
+.cz-table-icon-size{
+    font-size: 18px;
+}
+
+.cx-border-bottom-width{
+    border-bottom-width: 4px;
+}
+
+.cz-nav-tab-border-active{
+
+    color: #4a4a4a !important;
+    border-bottom: 4px solid #8BC43F !important;
+    
+   
+
+}
+
+.cz-tab{
+   
+    
+    font-size: 18px;
+    border: none;
+    text-transform: capitalize;  
+}
+
+.cz-primary-background-color{
+    background-color: #8BC43F;
+}
+
+.cz-secondary-background-color{
+    background-color: #dbf0c0;
+}
+
+.cz-primary-border-color{
+    border:1px solid #8BC43F !important;
+}
+
+.cz-form-input-label{
+    opacity: 0.4;
+    color: #121111;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+}
+
+.cz-page-title{
+    color: #4a4a4a;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    
+}
+
+.cz-table-td{
+    font-family: "Poppins", sans-serif;
+    color: #4a4a4a;
+    font-size: 14px;
+    padding: 11px 5px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.cz-table-th{
+    color: rgba(74, 74, 74, 0.7);
+    font-size: 12px;
+    padding: 13px 5px 20px;
+    text-transform: uppercase;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    font-family: "Poppins", sans-serif;
+    font-weight:600;
+}
+
+.cz-model-title{
+    color: #4a4a4a;
+    font-size: 23px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+}
+
+.cz-model-small{
+    font-size: 90%;
+    font-weight: 400;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}
+
+.cz-icon-size{
+    font-size: 18px;
+}
+
+.cz-page-box{
+    height: 100%;
+}
+
+.cz-label span{
+    color:red;
+}
+
+.cz-flash-msg:hover{
+    color:#4a4a4a;
+    cursor: pointer;
+}
+
+
+.nav-item .active{
+    background-color: #8BC43F !important;
+}
+
+.cz-horozontal-label{
+    opacity: 0.7;
+    color: #484848;
+    font-weight: 500;
+    font-size: 14px;
+} 
+
+input[switch=success]:checked+label {
+    background-color: #8BC43F !important;
+}
+

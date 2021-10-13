@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+html, body{
+    font-family: "Poppins", sans-serif;
+    color:#4A4A4A;
+    background-color: #ffffff;
+}
+.cartzon-page-title{
+    font-size: 16px;
+    color:#4A4A4A;
+    font-weight: lighter;
+    font-family: "Poppins", sans-serif;
+} 
+
+body[data-sidebar=dark] .navbar-brand-box {
+    background-color: #FDFFFC;
+    border-right: 1px solid #ECECEC;
+    
+}
+
+#page-topbar{
+    -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+    border-bottom: 1px solid #ECECEC;
+}
+
+#sidebar-menu{
+    background-color: #ffffff;
+    border-right: 1px solid #ECECEC;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a{
+    color:#4A4A4A;
+    font-weight: lighter;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a:hover{
+    color:#4F4A4F;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li:hover{
+    background-color: #dbf0c0;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a i{
+    color:#4A4A4A;
+    font-weight: lighter;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a:hover i{
+    color:#8BC43F;
+}
+
+
+.vertical-menu #sidebar-menu ul li.mm-active .active{
+    background-color: #dbf0c0;
+}
+
+
+
+body[data-sidebar=dark] .mm-active .active{
+    color:#4a4a4a!important;
+    
+}
+body[data-sidebar=dark] .mm-active .active i{
+    color:#8BC43F!important
+}
+
+
+.mini-stat-info p{
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 0;
+   
+}
+
+.mini-stat-info span{
+    color: #4c4c4c;
+}
+
+.cz-box{
+    border-bottom: 2px solid ;
+    border-radius: 10px;
+   
+}
+
+.cx-border-bottom-blue{
+    border-bottom-color: #3381ff;
+}
+
+.cx-border-bottom-orange{
+    border-bottom-color: #ff8400;
+}
+
+.cx-border-bottom-yello{
+    border-bottom-color: #003322;
+}
+
+.cx-border-bottom-green{
+    border-bottom-color: #77cf02;
+}
+
+.cz-button{
+    background-color: #75A535;
+    color:#FFFFFF;
+}
+
+.cz-button:hover{
+    color:#FFFFFF;
+}
+
+.cz-main-text{
+    color:#4a4a4a;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+}
+.cz-h4{
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    color:#666666;
+    font-weight: lighter;
+
+}
+
+.cz-h4 span{
+    font-weight: 500;
+}
+
+#dashboard_card{
+    color: #212529;
+}
