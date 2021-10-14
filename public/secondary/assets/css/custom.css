@@ -232,3 +232,7 @@ code[class*=language-], pre[class*=language-] {
 .addReadMoreWrapTxt.showmorecontent .readLess {
     display: block;
 }
+
+.danger_color{
+    color:red;
+}

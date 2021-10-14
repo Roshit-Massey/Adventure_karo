@@ -23,6 +23,8 @@
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="/v1/activities">All Activities</a></li>
                     <li><a href="/v1/activity/0">Add New Activity</a></li>
+                    <li><a href="/v1/inclusives">Add & List Inclusives</a></li>
+                    <li><a href="/v1/exclusives">Add & List Exclusives</a></li>
                 </ul>
             </li>
 

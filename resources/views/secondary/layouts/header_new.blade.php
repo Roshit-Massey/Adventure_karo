@@ -28,7 +28,7 @@
             </button>
 
             <div class="d-none d-sm-block ms-2">
-                <h4 class="page-title cartzon-page-title">CartZon</h4>
+                <h4 class="page-title cartzon-page-title">Adventure Karo</h4>
             </div>
         </div>
 

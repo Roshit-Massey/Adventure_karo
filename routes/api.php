@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
+/* ---------------------------------------------- Start Activity Section -----------------------------------------*/
+Route::get('all-activities','API\ActivityController@index');
+Route::post('add-activity','API\ActivityController@store');
+Route::get('show-activity','API\ActivityController@show');
+Route::patch('update-activity','API\ActivityController@update');
+Route::delete('delete-activity','API\ActivityController@delete');
+/* --------------------------------------------- End Activity Section --------------------------------------------*/
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
