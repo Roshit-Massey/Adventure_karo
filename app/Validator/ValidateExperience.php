@@ -4,7 +4,7 @@ namespace App\Validator;
 use Illuminate\Http\Request;
 use Exception;
 
-class ValidateActivity
+class ValidateExperience
 {
     public static function store($input){
         $rules = [
@@ -12,6 +12,9 @@ class ValidateActivity
             'info' => 'required|string',
             'details' => 'required|string',
             'image'  => 'required|mimes:jpeg,jpg,png|max:10000',
+            'country_id' => 'required|integer',
+            'state_id' => 'required|integer',
+            'city_id' => 'required|integer',
         ];
         $messages = [];
         $validation =  \Validator::make($input, $rules, $messages);
@@ -24,6 +27,9 @@ class ValidateActivity
             'info' => 'required|string',
             'details' => 'required|string',
             'image'  => 'mimes:jpeg,jpg,png|max:10000',
+            'country_id' => 'required|integer',
+            'state_id' => 'required|integer',
+            'city_id' => 'required|integer',
         ];
         $messages = [];
         $validation =  \Validator::make($input, $rules, $messages);

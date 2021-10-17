@@ -36,6 +36,12 @@ Route::get('/v1/exclusives', function () {
     return view('secondary.exclusive.index');
 });
 
+Route::get('/v1/experiences', function () {
+    return view('secondary.experience.index');
+});
+
+Route::get('/v1/experience/{id}', 'WebController@experience');
+
 
 //------------------------------------ End For Admin(v1) Routes -------------------------------------//
 

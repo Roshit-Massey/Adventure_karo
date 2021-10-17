@@ -1,5 +1,5 @@
 @extends('secondary.layouts.master_new')
-@section('title', 'Add Activity')
+@section('title', 'Add Experience')
 @section('container') 
 @section('styles')
 <link href="/secondary/assets/css/cropper.min.css" rel="stylesheet" type="text/css">
@@ -14,7 +14,7 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title"><i class="ion ion-md-add"></i> Add Activity</h4>
+                            <h4 class="card-title"><i class="ion ion-md-add"></i> Add Experience</h4>
                             <br>
 
 
@@ -39,12 +39,35 @@
                                     <span class="danger_color" id="error-details"> </span>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-4">
+                                <div class="col-sm-4">
+                                    <label class="col-sm-2 col-form-label">Country</label>
+                                    <select class="form-select" aria-label="Default select example" id="countries"  onchange="states(this.value)">
+                                        <option value="">Select Country</option>
+                                    </select>
+                                    <span class="danger_color" id="error-country"> </span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col-sm-2 col-form-label">State</label>
+                                    <select class="form-select" aria-label="Default select example" id="states"  onchange="city(this.value)">
+                                        <option value="">Select State</option>
+                                    </select>
+                                    <span class="danger_color" id="error-state"> </span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col-sm-2 col-form-label">City</label>
+                                    <select class="form-select" aria-label="Default select example" id="cities">
+                                        <option value="">Select City</option>
+                                    </select>
+                                    <span class="danger_color" id="error-city"> </span>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                    <label class="mb-1" for="filePhoto">Activity Image <span class="danger_color">*</span></label>
+                                    <label class="mb-1" for="filePhoto">Experience Image <span class="danger_color">*</span></label>
                                     <div class="mb-3">
-                                        <input type="file" class="filestyle custom-file-input" name="activityimage" data-buttonname="btn-primary" id="filePhoto">
+                                        <input type="file" class="filestyle custom-file-input" name="experienceimage" data-buttonname="btn-primary" id="filePhoto">
                                         <span class="danger_color" id="image-error" ></span>
                                     </div>
                                     </div>
@@ -60,7 +83,7 @@
 
                             <div class="mb-0">
                                 <div>
-                                    <button type="button" class="btn btn-primary waves-effect waves-light me-1" id="add-button" onclick="addAndUpdateActivity();"> Add </button>
+                                    <button type="button" class="btn btn-primary waves-effect waves-light me-1" id="add-button" onclick="addAndUpdateExperience();"> Add </button>
                                     <!-- <button type="reset" class="btn btn-secondary waves-effect">
                                         Cancel
                                     </button> -->
@@ -78,7 +101,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="myLargeModalLabel">Crop Activity Image</h5>
+                        <h5 class="modal-title mt-0" id="myLargeModalLabel">Crop Experience Image</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close" onclick="cancelPopup()"></button>
                     </div>
@@ -111,5 +134,5 @@
 <script src="/secondary/assets/js/pages/form-editor.init.js"></script>
 <script src="/secondary/js/bs-custom-file-input.min.js"></script>
 <script src="/secondary/js/cropper.min.js"></script>
-<script src="/secondary/js/app/add-edit-activity.js"></script>
+<script src="/secondary/js/app/add-edit-experience.js"></script>
 @endsection

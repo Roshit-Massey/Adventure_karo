@@ -13,6 +13,11 @@ class State extends Model
         return $this->hasMany(City::class);
     }
 
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class);

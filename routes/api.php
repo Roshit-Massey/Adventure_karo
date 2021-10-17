@@ -14,12 +14,27 @@ use Illuminate\Http\Request;
 */
 
 /* ---------------------------------------------- Start Activity Section -----------------------------------------*/
+Route::get('countries','API\CountryStateCityController@index');
+Route::get('states','API\CountryStateCityController@states');
+Route::get('cities','API\CountryStateCityController@cities');
+
+/* --------------------------------------------- End Activity Section --------------------------------------------*/
+
+/* ---------------------------------------------- Start Activity Section -----------------------------------------*/
 Route::get('all-activities','API\ActivityController@index');
 Route::post('add-activity','API\ActivityController@store');
 Route::get('show-activity','API\ActivityController@show');
 Route::post('update-activity','API\ActivityController@update');
 Route::delete('delete-activity','API\ActivityController@delete');
 /* --------------------------------------------- End Activity Section --------------------------------------------*/
+
+/* ---------------------------------------------- Start Experience Section -----------------------------------------*/
+Route::get('all-experiences','API\ExperienceController@index');
+Route::post('add-experience','API\ExperienceController@store');
+Route::get('show-experience','API\ExperienceController@show');
+Route::post('update-experience','API\ExperienceController@update');
+Route::delete('delete-experience','API\ExperienceController@delete');
+/* --------------------------------------------- End Experience Section --------------------------------------------*/
 
 /* ---------------------------------------------- Start Inclusive Section -----------------------------------------*/
 Route::get('all-inclusives','API\InclusiveExclusiveController@index');

@@ -34,6 +34,7 @@ body[data-sidebar=dark] .navbar-brand-box {
 #sidebar-menu{
     background-color: #ffffff;
     border-right: 1px solid #ECECEC;
+    height: 1000px;
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a{
@@ -51,8 +52,12 @@ body[data-sidebar=dark] #sidebar-menu ul li:hover{
     background-color: #dbf0c0;
 }
 
-body[data-sidebar=dark] #sidebar-menu ul li a i{
+body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a{
     color:#4A4A4A;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a i{
+    color:rgb(80, 43, 43);
     font-weight: lighter;
     font-family: "Poppins", sans-serif;
     font-size: 20px;

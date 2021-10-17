@@ -83,6 +83,18 @@ var api = {
         },
     },
 
+    CSC: {
+        countries: function (data, success, error) {
+            return query('/countries/', "GET", data, 1, success, error)
+        },
+        states: function (data, success, error) {
+            return query('/states/', "GET", data, 1, success, error)
+        },
+        cities: function (data, success, error) {
+            return query('/cities/', "GET", data, 1, success, error)
+        },
+    },
+
     dashboard: {
         count: function (data, success, error) {
             return query('/count/', "GET", data, 1, success, error)
@@ -101,6 +113,21 @@ var api = {
         },
         delete: function (data, success, error) {
             return query('/delete-activity/', "DELETE", data, 1, success, error)
+        },
+    },
+
+    experience: {
+        post: function (data, success, error) {
+            return mediaQuery('/add-experience/', "POST", data, 1, success, error)
+        },
+        show: function (data, success, error) {
+            return query('/show-experience/', "GET", data, 1, success, error)
+        },
+        patch: function (data, success, error) {
+            return mediaQuery('/update-experience/', "POST", data, 1, success, error)
+        },
+        delete: function (data, success, error) {
+            return query('/delete-experience/', "DELETE", data, 1, success, error)
         },
     },
 

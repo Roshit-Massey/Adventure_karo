@@ -230,6 +230,7 @@ return [
         'ValidateActivity' => App\Validator\ValidateActivity::class,
         'ValidateInclusive' => App\Validator\ValidateInclusive::class,
         'ValidateExclusive' => App\Validator\ValidateExclusive::class,
+        'ValidateExperience' => App\Validator\ValidateExperience::class,
     ],
 
 ];

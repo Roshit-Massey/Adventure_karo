@@ -11,4 +11,10 @@ class WebController extends Controller
             return view('secondary.activity.add-edit-activity')->with(array('id' => $id));
         }else return view('secondary.activity.add-edit-activity')->with(array('id' => $id));
     }
+
+    public function experience(Request $request, $id) {
+        if($id == 0){
+            return view('secondary.experience.add-edit-experience')->with(array('id' => $id));
+        }else return view('secondary.experience.add-edit-experience')->with(array('id' => $id));
+    }
 }
