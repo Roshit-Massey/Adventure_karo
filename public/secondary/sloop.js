@@ -73,6 +73,7 @@ function mediaQuery(e, t, n, r, success, error, tokenEnable = true, noLoader = t
 }
 
 var api = {
+
     auth: {
         login: function (data, success, error) {
             return query('/login/', "POST", data, 1, success, error)
@@ -81,23 +82,57 @@ var api = {
             return query('/logout/', "GET", data, 1, success, error)
         },
     },
+
     dashboard: {
         count: function (data, success, error) {
             return query('/count/', "GET", data, 1, success, error)
         },
     },
+
     activity: {
         post: function (data, success, error) {
-            return query('/add-activity/', "POST", data, 1, success, error)
+            return mediaQuery('/add-activity/', "POST", data, 1, success, error)
         },
         show: function (data, success, error) {
             return query('/show-activity/', "GET", data, 1, success, error)
         },
         patch: function (data, success, error) {
-            return query('/update-activity/', "PATCH", data, 1, success, error)
+            return mediaQuery('/update-activity/', "POST", data, 1, success, error)
         },
         delete: function (data, success, error) {
             return query('/delete-activity/', "DELETE", data, 1, success, error)
         },
     },
+
+    inclusive: {
+        post: function (data, success, error) {
+            return query('/add-inclusive/', "POST", data, 1, success, error)
+        },
+        show: function (data, success, error) {
+            return query('/show-inclusive/', "GET", data, 1, success, error)
+        },
+        patch: function (data, success, error) {
+            return query('/update-inclusive/', "PATCH", data, 1, success, error)
+        },
+        delete: function (data, success, error) {
+            return query('/delete-inclusive/', "DELETE", data, 1, success, error)
+        },
+    },
+
+    exclusive: {
+        post: function (data, success, error) {
+            return query('/add-exclusive/', "POST", data, 1, success, error)
+        },
+        show: function (data, success, error) {
+            return query('/show-exclusive/', "GET", data, 1, success, error)
+        },
+        patch: function (data, success, error) {
+            return query('/update-exclusive/', "PATCH", data, 1, success, error)
+        },
+        delete: function (data, success, error) {
+            return query('/delete-exclusive/', "DELETE", data, 1, success, error)
+        },
+    },
+
+    
 }

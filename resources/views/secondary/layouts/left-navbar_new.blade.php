@@ -9,26 +9,46 @@
         <ul class="metismenu list-unstyled" id="side-menu">
             <li>
                 <a href="/v1/dashboard" class="waves-effect">
-                    <span class="badge rounded-pill bg-primary float-end">20+</span>
                     <i class="mdi mdi-view-dashboard"></i>
                     <span> Dashboard </span>
                 </a>
             </li>
 
             <li>
+                <a href="/v1/inclusives">
+                    <i class="mdi mdi-format-horizontal-align-right"></i>
+                    <span>Inclusives</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/v1/exclusives">
+                    <i class="mdi mdi-format-horizontal-align-left"></i>
+                    <span>Exclusives</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
-                    <i class="mdi mdi-chart-line"></i>
+                    <i class="mdi mdi-factory"></i>
                     <span>Activities</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="/v1/activities">All Activities</a></li>
                     <li><a href="/v1/activity/0">Add New Activity</a></li>
-                    <li><a href="/v1/inclusives">Add & List Inclusives</a></li>
-                    <li><a href="/v1/exclusives">Add & List Exclusives</a></li>
                 </ul>
             </li>
 
-            
+            <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="mdi mdi-tooltip-text"></i>
+                    <span>Experiences</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="/v1/experiences">All Experiences</a></li>
+                    <li><a href="/v1/experience/0">Add New Experience</a></li>
+                </ul>
+            </li>
 
         </ul>
     </div>

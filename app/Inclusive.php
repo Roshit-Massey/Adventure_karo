@@ -5,8 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Activity extends Model
+class Inclusive extends Model
 {
     use SoftDeletes;
-    protected $fillable = [ 'title','info','details','image','original_image_name', 'status'];
+    protected $fillable = [ 'title','status' ];
 }

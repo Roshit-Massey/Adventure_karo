@@ -28,6 +28,15 @@ Route::get('/v1/activities', function () {
 
 Route::get('/v1/activity/{id}', 'WebController@index');
 
+Route::get('/v1/inclusives', function () {
+    return view('secondary.inclusive.index');
+});
+
+Route::get('/v1/exclusives', function () {
+    return view('secondary.exclusive.index');
+});
+
+
 //------------------------------------ End For Admin(v1) Routes -------------------------------------//
 
 //------------------------------------ Start For Vendor(v2) Routes -------------------------------------//

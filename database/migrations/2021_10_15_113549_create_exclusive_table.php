@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActivities extends Migration
+class CreateExclusiveTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateActivities extends Migration
      */
     public function up()
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create('exclusives', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->longText('info');
-            $table->longText('details');
-            $table->string('image');
-            $table->string('original_image_name');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
@@ -33,6 +29,6 @@ class CreateActivities extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('exclusives');
     }
 }

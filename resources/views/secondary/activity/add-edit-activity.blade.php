@@ -1,6 +1,9 @@
 @extends('secondary.layouts.master_new')
 @section('title', 'Add Activity')
 @section('container') 
+@section('styles')
+<link href="/secondary/assets/css/cropper.min.css" rel="stylesheet" type="text/css">
+@endsection
 <div class="main-content" id="result">
     <div class="page-content">
         <div class="container-fluid">
@@ -36,7 +39,24 @@
                                     <span class="danger_color" id="error-details"> </span>
                                 </div>
                             </div>
-                            
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                    <label class="mb-1" for="filePhoto">Activity Image <span class="danger_color">*</span></label>
+                                    <div class="mb-3">
+                                        <input type="file" class="filestyle custom-file-input" name="activityimage" data-buttonname="btn-primary" id="filePhoto">
+                                        <span class="danger_color" id="image-error" ></span>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                    <div id="h2-add-magazine">
+                                        <img id="output" style="height: 90px;">
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="mb-0">
                                 <div>
@@ -51,6 +71,36 @@
                 </div> <!-- end col -->
             </div> <!-- end row -->
         </div> <!-- container-fluid -->
+
+        <!--  Modal content for the above example -->
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" id="modal_crop"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myLargeModalLabel">Large modal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close" onclick="cancelPopup()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="img-container">
+                            <div class="row">
+                                <div class="col-md-8">  
+                                    <img class="crop_image" id="image">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="crop_preview"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="cancelPopup()" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="crop">Crop</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     </div>
 </div>
 <!-- End Page-content -->
@@ -59,5 +109,7 @@
 <script> var id = "{{$id}}";</script>
 <script src="/secondary/assets/libs/tinymce/tinymce.min.js"></script>
 <script src="/secondary/assets/js/pages/form-editor.init.js"></script>
+<script src="/secondary/js/bs-custom-file-input.min.js"></script>
+<script src="/secondary/js/cropper.min.js"></script>
 <script src="/secondary/js/app/add-edit-activity.js"></script>
 @endsection

@@ -4,13 +4,11 @@ namespace App\Validator;
 use Illuminate\Http\Request;
 use Exception;
 
-class ValidateActivity
+class ValidateExclusive
 {
     public static function store($input){
         $rules = [
             'title' => 'required|string|regex:/^[a-zA-Z0-9 .-]*$/',
-            'info' => 'required|string',
-            'details' => 'required|string',
         ];
         $messages = [];
         $validation =  \Validator::make($input, $rules, $messages);
@@ -20,8 +18,6 @@ class ValidateActivity
     public static function update($input){
         $rules = [
             'title' => 'required|string|regex:/^[a-zA-Z0-9 .-]*$/',
-            'info' => 'required|string',
-            'details' => 'required|string',
         ];
         $messages = [];
         $validation =  \Validator::make($input, $rules, $messages);
