@@ -72,6 +72,10 @@ function mediaQuery(e, t, n, r, success, error, tokenEnable = true, noLoader = t
     })
 }
 
+function logout(){
+    api.auth.logout(undefined, function(success){ if(success && success.success) window.location.href = '/auth/login'; })
+}
+
 var api = {
 
     auth: {

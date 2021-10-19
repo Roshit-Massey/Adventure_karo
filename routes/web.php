@@ -17,36 +17,51 @@ Route::get('/', function () {
 });
 //------------------------------------ End For Website Routes ---------------------------------------//
 
-//------------------------------------ Start For Admin(v1) Routes -------------------------------------//
-Route::get('/v1/dashboard', function () {
-    return view('secondary.dashboard.index');
+//------------------------------------ Start For Only Admin Routes -------------------------------------//
+Route::group(['middleware'=>['CheckLogin']],function (){ 
+    Route::get('/auth/login', function () {
+        return view('secondary.index');
+    });
 });
 
-Route::get('/v1/activities', function () {
-    return view('secondary.activity.index');
+Route::group(['middleware'=>['web', 'CheckAdmin']],function (){ 
+    
+    Route::get('/v1/activities', function () {
+        return view('secondary.activity.index');
+    });
+
+    Route::get('/v1/activity/{id}', 'WebController@index');
+
+    Route::get('/v1/inclusives', function () {
+        return view('secondary.inclusive.index');
+    });
+
+    Route::get('/v1/exclusives', function () {
+        return view('secondary.exclusive.index');
+    });
+
+    Route::get('/v1/experiences', function () {
+        return view('secondary.experience.index');
+    });
+
+    Route::get('/v1/experience/{id}', 'WebController@experience');
+
 });
+//------------------------------------ End For Only Admin Routes -------------------------------------//
 
-Route::get('/v1/activity/{id}', 'WebController@index');
-
-Route::get('/v1/inclusives', function () {
-    return view('secondary.inclusive.index');
+//------------------------------------ Start For Only Vendor Routes -------------------------------------//
+Route::group(['middleware'=>['CheckVendor']],function (){ 
+   
 });
+//------------------------------------ End For Only Vendor Routes -------------------------------------//
 
-Route::get('/v1/exclusives', function () {
-    return view('secondary.exclusive.index');
+//------------------------------------ Start For Both Admin and Vendor Routes -------------------------------------//
+Route::group(['middleware'=>['CheckAdminVendor']],function (){ 
+    Route::get('/v1', function () {
+        return view('secondary.dashboard.index');
+    });
 });
+//------------------------------------ End For Both Admin and Vendor Routes -------------------------------------//
+Auth::routes();
 
-Route::get('/v1/experiences', function () {
-    return view('secondary.experience.index');
-});
-
-Route::get('/v1/experience/{id}', 'WebController@experience');
-
-
-//------------------------------------ End For Admin(v1) Routes -------------------------------------//
-
-//------------------------------------ Start For Vendor(v2) Routes -------------------------------------//
-Route::get('/v2/dashboard', function () {
-    return view('secondary.dashboard.index');
-});
-//------------------------------------ End For Vendor(v2) Routes -------------------------------------//
+Route::get('/home', 'HomeController@index')->name('home');

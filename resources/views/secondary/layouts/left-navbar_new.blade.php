@@ -8,12 +8,11 @@
         <!-- Left Menu Start -->
         <ul class="metismenu list-unstyled" id="side-menu">
             <li>
-                <a href="/v1/dashboard" class="waves-effect">
+                <a href="/v1" class="waves-effect">
                     <i class="mdi mdi-view-dashboard"></i>
                     <span> Dashboard </span>
                 </a>
             </li>
-
             <li>
                 <a href="/v1/inclusives">
                     <i class="mdi mdi-format-horizontal-align-right"></i>
@@ -49,7 +48,6 @@
                     <li><a href="/v1/experience/0">Add New Experience</a></li>
                 </ul>
             </li>
-
         </ul>
     </div>
     <!-- Sidebar -->

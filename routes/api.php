@@ -13,6 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
+/* ---------------------------------------------- Start Login and Logout Section ------------------------------------*/
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
+    });
+});
+Route::post('login','Auth\LoginController@index');
+Route::get('logout', 'Auth\LoginController@logout');
+/* ---------------------------------------------- End Login and Logout Section --------------------------------------*/
+
 /* ---------------------------------------------- Start Activity Section -----------------------------------------*/
 Route::get('countries','API\CountryStateCityController@index');
 Route::get('states','API\CountryStateCityController@states');
