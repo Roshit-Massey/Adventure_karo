@@ -137,7 +137,7 @@ var api = {
 
     inclusive: {
         post: function (data, success, error) {
-            return query('/add-inclusive/', "POST", data, 1, success, error)
+            return query('/add-inclusive', "POST", data, 1, success, error)
         },
         show: function (data, success, error) {
             return query('/show-inclusive/', "GET", data, 1, success, error)
