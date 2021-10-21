@@ -18,6 +18,9 @@ class CreateActivities extends Migration
             $table->string('title');
             $table->longText('info');
             $table->longText('details');
+            $table->string('image');
+            $table->string('original_image_name');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

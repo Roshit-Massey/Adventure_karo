@@ -10,7 +10,7 @@ $(document).ready(function () {
     if($("#elm1").length > 0){
         tinymce.init({
             selector: "textarea#elm1",
-            placeholder: "Write activity Information...",
+            placeholder: "Write Information...",
             height:300,
             plugins: [
                 "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
@@ -32,7 +32,7 @@ $(document).ready(function () {
     if($("#elm2").length > 0){
         tinymce.init({
             selector: "textarea#elm2",
-            placeholder: "Write activity Description...",
+            placeholder: "Write Details...",
             height:300,
             plugins: [
                 "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",

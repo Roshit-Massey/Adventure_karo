@@ -35,11 +35,14 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
         ],
 
         'api' => [
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             'throttle:60,1',
-            'bindings',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
 
@@ -60,6 +63,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'CheckLogin' => \App\Http\Middleware\CheckLogin::class,
+        'CheckUser' => \App\Http\Middleware\CheckUser::class,
+        'CheckAdmin' => \App\Http\Middleware\CheckAdmin::class,
+        'CheckVendor' => \App\Http\Middleware\CheckVendor::class,
+        'CheckAdminVendor' => \App\Http\Middleware\CheckAdminVendor::class,
     ];
 
     /**

@@ -34,6 +34,7 @@ body[data-sidebar=dark] .navbar-brand-box {
 #sidebar-menu{
     background-color: #ffffff;
     border-right: 1px solid #ECECEC;
+    height: 1000px;
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a{
@@ -51,8 +52,12 @@ body[data-sidebar=dark] #sidebar-menu ul li:hover{
     background-color: #dbf0c0;
 }
 
-body[data-sidebar=dark] #sidebar-menu ul li a i{
+body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a{
     color:#4A4A4A;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a i{
+    color:rgb(80, 43, 43);
     font-weight: lighter;
     font-family: "Poppins", sans-serif;
     font-size: 20px;
@@ -373,4 +378,64 @@ body[data-sidebar=dark] .mm-active .active i{
 input[switch=success]:checked+label {
     background-color: #8BC43F !important;
 }
+
+.order-det {
+    color: #2ca6b1;
+    border: 1px solid #2ca6b1 !important;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+   .order-placed-on{
+    text-align: right;
+  }
+  .bold {
+      font-weight: 600;
+  }
+  .payment-statement{
+      display: flex;
+      flex-direction: column;
+  }
+
+  .payment-wallet{
+    text-align: right;
+    margin-top: -50px;
+  }
+  .solid-line{
+    border-bottom: 1px solid #ccc;
+  }
+  .user-order-details{
+    margin-top: 20px;
+    font-size: 13px;
+  }
+  .order-del-text{
+    margin: 5px !important;
+  }
+  .order-btn{
+    margin-top: 20px;
+    display: flex;
+      justify-content: flex-end;
+  }
+  .bg-secondary-btn{
+    background-color: #a8a8a8 !important;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
+    height: 28px;
+    padding: 0px 10px;
+    margin-right: 5px;
+  }
+   .bg-success-btn{
+    background-color: #2ca6b1 !important;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
+    height: 28px;
+    padding: 0px 10px;
+  }
 
