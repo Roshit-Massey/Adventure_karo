@@ -43,10 +43,6 @@ function readURL(input) {
     }
 }
 
-$("#filePhoto").change(function () {
-    readURL(this);
-});
-
 bs_modal.on('shown.bs.modal', function() {
     cropper = new Cropper(image, {
         aspectRatio: 70/45,
@@ -97,9 +93,9 @@ function cancelPopup(){
     $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose File")
 }
 
-$("#filePhoto").change(function () {
-    readURL(this);
-});
+// $("#filePhoto").change(function () {
+//     readURL(this);
+// });
 //End Image Choose and Crop Section
 
 var clearExperienceErrors = function(){
@@ -159,19 +155,27 @@ var validateExperience = function(){
     data.append('city_id', city_id);
 
     if(id != 0){ 
-        if($('input[name=experienceimage]').prop('files')[0]){
-            var img = $('input[name=experienceimage]').prop('files')[0].name;
-            var file = urltoFile(base64data,img);
-            data.append('image', file);
+        if($('input[name=experienceimage]').prop('files').length > 0){
+            // var img = $('input[name=experienceimage]').prop('files')[0].name;
+            // var file = urltoFile(base64data,img);
+            // data.append('image', file);
+            var fileArr = $('input[name=experienceimage]').prop('files');
+            for(var i=0;i<fileArr.length;i++){
+                data.append("image[]", fileArr[i], fileArr[i]['name']);
+            }
         }
     }else {
-        if (!$('input[name=experienceimage]').prop('files')[0]) {
+        if ($('input[name=experienceimage]').prop('files').length == 0) {
             $('#image-error').text('Please choose a experience image');
             error = true;
         }else {
-            var img = $('input[name=experienceimage]').prop('files')[0].name;
-            var file = urltoFile(base64data,img);
-            data.append('image', file);
+            // var img = $('input[name=experienceimage]').prop('files')[0].name;
+            // var file = urltoFile(base64data,img);
+            // data.append('image', file);
+            var fileArr = $('input[name=experienceimage]').prop('files');
+            for(var i=0;i<fileArr.length;i++){
+                data.append("image[]", fileArr[i], fileArr[i]['name']);
+            }
         }
     }
     return data;
@@ -191,8 +195,10 @@ var addAndUpdateExperience = function(){
     }else {
         data.append('id', id);
         !error && api.experience.patch(data, function(success){
-            if(success && success.success)
+            if(success && success.success){
                 swal({ title: "", type: "success", text: success.msg ,showConfirmButton: false,timer: 2000 });
+                load();
+            }
         })
     }
 }
@@ -201,10 +207,29 @@ var clearExperienceFields  = function(){
     $('#title').val('');
     $('#elm1').val('');
     $('#elm2').val('');
-    $('#output').attr('src', '');
-    $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose File")
-    $('#h2-add-magazine').removeClass('img_show_upload');
+    $('#experience_images').html('');
+    // $('#output').attr('src', '');
+    $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose Files")
+    // $('#h2-add-magazine').removeClass('img_show_upload');
     $('#add-button').text('Add');
+}
+
+var setExperienceImage = function(data){
+    $('#experience_images').append('<div class="col-md-3"> <div class="mb-3"> <img src="/images/experience/logo/'+data.image+'" style="width:100px;"/> </div> <label class="mb-1">'+data.original_image_name+'  <a href="javascript:void(0);" onclick="deleteExperienceImage('+data.id+');" title="Delete" style="color: #dc3545;"><i class="fas fa-trash-alt"></i></a></label> </div>');
+}
+
+var deleteExperienceImage = function(id){
+    swal({ title: "Are you sure?", text: "Once deleted, you will not be able to recover this experience image!", icon: "warning", buttons: true, dangerMode: true })
+    .then((willDelete) => {
+        if(willDelete) {
+            api.experience.image({id:id}, function(success){
+                if(success && success.success){
+                    swal({ title: "", type: "success", text: success.msg ,showConfirmButton: false,timer: 2000 });
+                    load();
+                }
+            })
+        }
+    });
 }
 
 var load = function(){
@@ -217,10 +242,15 @@ var load = function(){
             countries(success.data.country_id);
             states(success.data.country_id, success.data.state_id);
             city(success.data.state_id, success.data.city_id);
-            $('#output').attr('src', '/images/experience/logo/'+success.data.image);
-            $('.bootstrap-filestyle').find('input').attr('placeholder', success.data.original_image_name)
-            $('#h2-add-magazine').addClass('img_show_upload');
             $('#add-button').text('Update');
+            if(success.data.experience_images && success.data.experience_images.length > 0){
+                success.data.experience_images.forEach(experience => {
+                    setExperienceImage(experience);
+                });
+            }
+            // $('#output').attr('src', '/images/experience/logo/'+success.data.image);
+            // $('.bootstrap-filestyle').find('input').attr('placeholder', success.data.original_image_name)
+            // $('#h2-add-magazine').addClass('img_show_upload');
 
         }
     })
@@ -263,7 +293,7 @@ $(document).ready(function(){
     if(id != 0) load();
     else{
         countries();
-        $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose File")
+        $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose Files")
     } 
     
 })

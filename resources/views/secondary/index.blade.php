@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <div class="text-center mt-4">
                                     <div class="mb-3">
-                                        <a href="/"><img src="/secondary/assets/images/cartzon-logo.png" height="60" alt="logo"></a>
+                                        <a href="/"><img src="/secondary/assets/images/adventure-logo.png" height="100" width="130" alt="logo"></a>
                                     </div>
                                 </div>
                                 <div class="p-3">

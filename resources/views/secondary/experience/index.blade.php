@@ -21,7 +21,7 @@
                                 <thead>
                                     <tr>
                                         <th>Sr. No.</th>
-                                        <th>Image</th>
+                                        <!-- <th>Image</th> -->
                                         <th>Name</th>
                                         <th>Info</th>
                                         <th>Country</th>

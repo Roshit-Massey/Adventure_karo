@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use ValidateExperience;
 use EncryptDecrypt;
 use App\Experience;
+use App\ExperienceImage;
 use App\Country;
 use App\State;
 use App\City;
@@ -19,7 +20,7 @@ class ExperienceController extends Controller
 
     public function index(Request $request) {
         $requestData = $request; 
-        $columns = array(4 => 'created_at', 2 => 'title', 5 => 'updated_at');
+        $columns = array(6 => 'created_at', 1 => 'title', 7 => 'updated_at');
         $search = $requestData['search']['value'];
         $data = array();
         if($search != ""){
@@ -38,7 +39,7 @@ class ExperienceController extends Controller
                 $nestedData = array();
                 $encryptedId = EncryptDecrypt::encrypt($key->id);
                 $nestedData[] = $i+1;
-                $nestedData[] = ($key->image ? '<img src="/images/experience/logo/'.$key->image.'" alt="'.$key->title.'" style="width: 100px;"></img>' : 'NA');
+                // $nestedData[] = ($key->image ? '<img src="/images/experience/logo/'.$key->image.'" alt="'.$key->title.'" style="width: 100px;"></img>' : 'NA');
                 $nestedData[] = ($key->title ? $key->title : 'NA');
                 $nestedData[] = ($key->info ? $key->info : 'NA');
                 $nestedData[] = ($key->country_id ? Country::where('id', $key->country_id)->value('name') : 'NA');
@@ -67,7 +68,7 @@ class ExperienceController extends Controller
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
         $id = EncryptDecrypt::decrypt($id);
-        $experince = Experience::select('title', 'info', 'details', 'image', 'original_image_name', 'country_id', 'state_id', 'city_id', 'created_at', 'updated_at')->where('id', $id)->first();
+        $experince = Experience::select('id', 'title', 'info', 'details', 'image', 'original_image_name', 'country_id', 'state_id', 'city_id', 'created_at', 'updated_at')->with('experience_images')->where('id', $id)->first();
         if($experince)
             return response()->json(['success'=>true, 'msg' => 'Experince found.', 'data' => $experince], $this->successStatus);
         else return response()->json(['success'=>false, 'msg' => 'Error fetching experince.' ],500);
@@ -78,20 +79,31 @@ class ExperienceController extends Controller
         $validation = ValidateExperience::store($input);
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = uniqid().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/experience/logo');
-            $imagePath = $destinationPath. "/".  $name;
-            $image->move($destinationPath, $name);
-            $input['image'] = $name;
-            $input['original_image_name'] = $image->getClientOriginalName();
-        }
-        $experienceCreated = Experience::create($input);
-        if($experienceCreated)
-            return response()->json(['success'=>true, 'msg' => 'Experience is successfully saved.'], $this->successStatus);
-        else
-            return response()->json(['success'=>false, 'msg' => 'Error creating experience.' ],500);
+        $experienceCreated = Experience::create(['title' => $input['title'], 'info' => $input['info'], 'details' => $input['details'], 'image' => 'NA', 'original_image_name' => 'NA', 'country_id' => $input['country_id'], 'state_id' => $input['state_id'], 'city_id' => $input['city_id']]);
+        if($experienceCreated){
+            $data = array();
+            if ($request->has('image') && $request->file('image')) {
+                $images=array();
+                $files = $request->file('image');
+                $i = 0;
+                foreach($files as $file){
+                    $name = uniqid().'.'.$file->getClientOriginalExtension();
+                    $destinationPath = public_path('/images/experience/logo');
+                    $file->move($destinationPath, $name);
+                    $images[$i]['original_image_name'] = $file->getClientOriginalName();
+                    $images[$i]['image'] = $name;
+                    $images[$i]['experience_id'] = $experienceCreated->id;
+                    $images[$i]['created_at'] = Carbon::now();
+                    $images[$i]['updated_at'] = Carbon::now();
+                    $i++;
+                }
+                $data = $images;
+            }
+            $insertExperienceImages = ExperienceImage::insert($data);
+            if($insertExperienceImages)
+                return response()->json(['success'=>true, 'msg' => 'Experience is successfully created.'], $this->successStatus);
+            else return response()->json(['success'=>false, 'msg' => 'Error creating experience images.' ],500);
+        }else return response()->json(['success'=>false, 'msg' => 'Error creating experience.' ],500);
     }
 
     public function update(Request $request){
@@ -104,23 +116,31 @@ class ExperienceController extends Controller
                 $validation = ValidateExperience::update($input);
                 if($validation->fails())  
                     return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
-                if ($request->hasFile('image')) {
-                    $image = $request->file('image');
-                    $name = uniqid().'.'.$image->getClientOriginalExtension();
-                    $destinationPath = public_path('/images/experience/logo');
-                    $imagePath = $destinationPath. "/".  $name;
-                    $image->move($destinationPath, $name);
-                    $input['image'] = $name;
-                    $input['original_image_name'] = $image->getClientOriginalName();
-                }
-                unset($input["id"]);
-                $experienceUpdated = Experience::where('id', $mainid)->update($input);
+                $experienceUpdated = Experience::where('id', $mainid)->update(['title' => $input['title'], 'info' => $input['info'], 'details' => $input['details'], 'country_id' => $input['country_id'], 'state_id' => $input['state_id'], 'city_id' => $input['city_id']]);
                 if($experienceUpdated){
-                    $destinationPath = public_path('/images/experience/logo');
-                    if($request->hasFile('image') && file_exists($destinationPath.'/'.$experienceCheck->image))
-                        File::delete($destinationPath.'/'.$experienceCheck->image);
-                    return response()->json(['success'=>true, 'msg' => 'Experience is successfully updated.'], $this->successStatus);
-                } else return response()->json(['success'=>false, 'msg' => 'Error creating experience.' ],500);
+                    $data = array();
+                    if ($request->has('image') && $request->file('image')) {
+                        $images=array();
+                        $files = $request->file('image');
+                        $i = 0;
+                        foreach($files as $file){
+                            $name = uniqid().'.'.$file->getClientOriginalExtension();
+                            $destinationPath = public_path('/images/experience/logo');
+                            $file->move($destinationPath, $name);
+                            $images[$i]['original_image_name'] = $file->getClientOriginalName();
+                            $images[$i]['image'] = $name;
+                            $images[$i]['experience_id'] = $mainid;
+                            $images[$i]['created_at'] = Carbon::now();
+                            $images[$i]['updated_at'] = Carbon::now();
+                            $i++;
+                        }
+                        $data = $images;
+                    }
+                    $insertExperienceImages = ExperienceImage::insert($data);
+                    if($insertExperienceImages)
+                        return response()->json(['success'=>true, 'msg' => 'Experience is successfully updated.'], $this->successStatus);
+                    else return response()->json(['success'=>false, 'msg' => 'Error updating Experience images.' ],500);
+                } else return response()->json(['success'=>false, 'msg' => 'Error updating Experience.' ],500);
             }else return response()->json(['success'=>false, 'msg' => 'Experience not found.' ],404);
         }else return response()->json(['success'=>false, 'msg' => 'Invalid data received.' ],403);
     }
@@ -139,5 +159,23 @@ class ExperienceController extends Controller
                 return response()->json(['success'=>true, 'msg' => 'Experience is successfully deleted.'], $this->successStatus);
             else return response()->json(['success'=>false, 'msg' => 'Error deleting experience.' ],500);
         }else return response()->json(['success'=>false, 'msg' => 'Error deleting experience.' ],404);
+    }
+
+    public function deleteImage(Request $request){
+        $input = $request->all();
+        $id = $request->input('id');
+        $validation = ValidateExperience::show_or_delete($input);
+        if($validation->fails())  
+            return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
+        $experienceCheck = ExperienceImage::where('id', $id)->first();
+        if($experienceCheck){
+            $deleted = $experienceCheck->destroy($id);
+            if($deleted){
+                $destinationPath = public_path('/images/experience/logo');
+                if(file_exists($destinationPath.'/'.$experienceCheck->image))
+                    File::delete($destinationPath.'/'.$experienceCheck->image);
+                return response()->json(['success'=>true, 'msg' => 'Experience Image is successfully deleted.'], $this->successStatus);
+            }else return response()->json(['success'=>false, 'msg' => 'Error deleting experience image.' ],500);
+        }else return response()->json(['success'=>false, 'msg' => 'Error deleting experience image.' ],404);
     }
 }

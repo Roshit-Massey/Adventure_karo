@@ -46,6 +46,12 @@ Route::group(['middleware'=>['web', 'CheckAdmin']],function (){
 
     Route::get('/v1/experience/{id}', 'WebController@experience');
 
+    Route::get('/v1/vendors', function () {
+        return view('secondary.vendor.index');
+    });
+
+    Route::get('/v1/vendor/{id}', 'WebController@vendor');
+
 });
 //------------------------------------ End For Only Admin Routes -------------------------------------//
 

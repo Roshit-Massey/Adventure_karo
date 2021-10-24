@@ -43,9 +43,6 @@ function readURL(input) {
     }
 }
 
-$("#filePhoto").change(function () {
-    readURL(this);
-});
 
 bs_modal.on('shown.bs.modal', function() {
     cropper = new Cropper(image, {
@@ -97,9 +94,9 @@ function cancelPopup(){
     $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose File")
 }
 
-$("#filePhoto").change(function () {
-    readURL(this);
-});
+// $("#filePhoto").change(function () {
+//     readURL(this);
+// });
 //End Image Choose and Crop Section
 
 var clearAvtivityErrors = function(){
@@ -135,19 +132,27 @@ var validateActivity = function(){
     data.append('details', details);
 
     if(id != 0){ 
-        if($('input[name=activityimage]').prop('files')[0]){
-            var img = $('input[name=activityimage]').prop('files')[0].name;
-            var file = urltoFile(base64data,img);
-            data.append('image', file);
+        if($('input[name=activityimage]').prop('files').length > 0){
+            // var img = $('input[name=activityimage]').prop('files')[0].name;
+            // var file = urltoFile(base64data,img);
+            // data.append('image', file);
+            var fileArr = $('input[name=activityimage]').prop('files');
+            for(var i=0;i<fileArr.length;i++){
+                data.append("image[]", fileArr[i], fileArr[i]['name']);
+            }
         }
     }else {
-        if (!$('input[name=activityimage]').prop('files')[0]) {
+        if ($('input[name=activityimage]').prop('files').length == 0) {
             $('#image-error').text('Please choose a activity image');
             error = true;
         }else {
-            var img = $('input[name=activityimage]').prop('files')[0].name;
-            var file = urltoFile(base64data,img);
-            data.append('image', file);
+            // var img = $('input[name=activityimage]').prop('files')[0].name;
+            // var file = urltoFile(base64data,img);
+            // data.append('image', file);
+            var fileArr = $('input[name=activityimage]').prop('files');
+            for(var i=0;i<fileArr.length;i++){
+                data.append("image[]", fileArr[i], fileArr[i]['name']);
+            }
         }
     }
     return data;
@@ -167,8 +172,10 @@ var addAndUpdateActivity = function(){
     }else {
         data.append('id', id);
         !error && api.activity.patch(data, function(success){
-            if(success && success.success)
+            if(success && success.success){
                 swal({ title: "", type: "success", text: success.msg ,showConfirmButton: false,timer: 2000 });
+                load();
+            }
         })
     }
 }
@@ -177,10 +184,29 @@ var clearActivityFields  = function(){
     $('#title').val('');
     $('#elm1').val('');
     $('#elm2').val('');
-    $('#output').attr('src', '');
-    $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose File")
-    $('#h2-add-magazine').removeClass('img_show_upload');
+    $('#activity_images').html('');
+    // $('#output').attr('src', '');
+    $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose Files")
+    // $('#h2-add-magazine').removeClass('img_show_upload');
     $('#add-button').text('Add');
+}
+
+var setActivityImage = function(data){
+    $('#activity_images').append('<div class="col-md-3"> <div class="mb-3"> <img src="/images/activity/logo/'+data.image+'" style="width:100px;"/> </div> <label class="mb-1">'+data.original_image_name+'  <a href="javascript:void(0);" onclick="deleteActivityImage('+data.id+');" title="Delete" style="color: #dc3545;"><i class="fas fa-trash-alt"></i></a></label> </div>');
+}
+
+var deleteActivityImage = function(id){
+    swal({ title: "Are you sure?", text: "Once deleted, you will not be able to recover this activity image!", icon: "warning", buttons: true, dangerMode: true })
+    .then((willDelete) => {
+        if(willDelete) {
+            api.activity.image({id:id}, function(success){
+                if(success && success.success){
+                    swal({ title: "", type: "success", text: success.msg ,showConfirmButton: false,timer: 2000 });
+                    load();
+                }
+            })
+        }
+    });
 }
 
 var load = function(){
@@ -190,16 +216,21 @@ var load = function(){
             $('#title').val(success.data.title);
             $('#elm1').val(success.data.info);
             $('#elm2').val(success.data.details);
-            $('#output').attr('src', '/images/activity/logo/'+success.data.image);
-            $('.bootstrap-filestyle').find('input').attr('placeholder', success.data.original_image_name)
-            $('#h2-add-magazine').addClass('img_show_upload');
             $('#add-button').text('Update');
+            if(success.data.activity_images && success.data.activity_images.length > 0){
+                success.data.activity_images.forEach(activity => {
+                    setActivityImage(activity);
+                });
+            }
+            // $('#output').attr('src', '/images/activity/logo/'+success.data.image);
+            // $('.bootstrap-filestyle').find('input').attr('placeholder', success.data.original_image_name)
+            // $('#h2-add-magazine').addClass('img_show_upload');
         }
     })
 }
 
 $(document).ready(function(){
     if(id != 0) load();
-    $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose File")
+    $('.bootstrap-filestyle').find('input').attr('placeholder', "Choose Files")
 })
 

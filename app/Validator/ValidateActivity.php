@@ -11,7 +11,7 @@ class ValidateActivity
             'title' => 'required|string|regex:/^[a-zA-Z0-9 .-]*$/',
             'info' => 'required|string',
             'details' => 'required|string',
-            'image'  => 'required|mimes:jpeg,jpg,png|max:10000',
+            'image'  => 'required|array',
         ];
         $messages = [];
         $validation =  \Validator::make($input, $rules, $messages);
@@ -23,7 +23,7 @@ class ValidateActivity
             'title' => 'required|string|regex:/^[a-zA-Z0-9 .-]*$/',
             'info' => 'required|string',
             'details' => 'required|string',
-            'image'  => 'mimes:jpeg,jpg,png|max:10000',
+            'image'  => 'array',
         ];
         $messages = [];
         $validation =  \Validator::make($input, $rules, $messages);

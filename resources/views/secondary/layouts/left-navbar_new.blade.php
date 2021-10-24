@@ -48,6 +48,16 @@
                     <li><a href="/v1/experience/0">Add New Experience</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="mdi mdi-account-multiple-outline"></i>
+                    <span>Vendors</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="/v1/vendors">All Vendors</a></li>
+                    <li><a href="/v1/vendor/0">Add New Vendor</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
     <!-- Sidebar -->

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use ValidateActivity;
 use EncryptDecrypt;
 use App\Activity;
+use App\ActivityImage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 
@@ -16,7 +17,7 @@ class ActivityController extends Controller
 
     public function index(Request $request) {
         $requestData = $request; 
-        $columns = array(4 => 'created_at', 2 => 'title', 5 => 'updated_at');
+        $columns = array(3 => 'created_at', 1 => 'title', 4 => 'updated_at');
         $search = $requestData['search']['value'];
         $data = array();
         if($search != ""){
@@ -35,7 +36,7 @@ class ActivityController extends Controller
                 $nestedData = array();
                 $encryptedId = EncryptDecrypt::encrypt($key->id);
                 $nestedData[] = $i+1;
-                $nestedData[] = ($key->image ? '<img src="/images/activity/logo/'.$key->image.'" alt="'.$key->title.'" style="width: 100px;"></img>' : 'NA');
+                // $nestedData[] = ($key->image ? '<img src="/images/activity/logo/'.$key->image.'" alt="'.$key->title.'" style="width: 100px;"></img>' : 'NA');
                 $nestedData[] = ($key->title ? $key->title : 'NA');
                 $nestedData[] = ($key->info ? $key->info : 'NA');
                 $nestedData[] = date('d-m-Y H:i:s', strtotime($key->created_at));
@@ -61,7 +62,7 @@ class ActivityController extends Controller
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
         $id = EncryptDecrypt::decrypt($id);
-        $activity = Activity::select('title', 'info', 'details', 'image', 'original_image_name', 'created_at', 'updated_at')->where('id', $id)->first();
+        $activity = Activity::select('id', 'title', 'info', 'details', 'image', 'original_image_name', 'created_at', 'updated_at')->with('activity_images')->where('id', $id)->first();
         if($activity)
             return response()->json(['success'=>true, 'msg' => 'Activity found.', 'data' => $activity], $this->successStatus);
         else return response()->json(['success'=>false, 'msg' => 'Error fetching activity.' ],500);
@@ -72,20 +73,32 @@ class ActivityController extends Controller
         $validation = ValidateActivity::store($input);
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = uniqid().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/activity/logo');
-            $imagePath = $destinationPath. "/".  $name;
-            $image->move($destinationPath, $name);
-            $input['image'] = $name;
-            $input['original_image_name'] = $image->getClientOriginalName();
-        }
-        $activityCreated = Activity::create($input);
-        if($activityCreated)
-            return response()->json(['success'=>true, 'msg' => 'Activity is successfully saved.'], $this->successStatus);
-        else
-            return response()->json(['success'=>false, 'msg' => 'Error creating activity.' ],500);
+        $activityCreated = Activity::create(['title' => $input['title'], 'info' => $input['info'], 'details' => $input['details'], 'image' => 'NA', 'original_image_name' => 'NA']);
+        if($activityCreated){
+            $data = array();
+            if ($request->has('image') && $request->file('image')) {
+                $images=array();
+                $files = $request->file('image');
+                $i = 0;
+                foreach($files as $file){
+                    $name = uniqid().'.'.$file->getClientOriginalExtension();
+                    $destinationPath = public_path('/images/activity/logo');
+                    $file->move($destinationPath, $name);
+                    $images[$i]['original_image_name'] = $file->getClientOriginalName();
+                    $images[$i]['image'] = $name;
+                    $images[$i]['activity_id'] = $activityCreated->id;
+                    $images[$i]['created_at'] = Carbon::now();
+                    $images[$i]['updated_at'] = Carbon::now();
+                    $i++;
+                }
+                $data = $images;
+            }
+            $insertActivityImages = ActivityImage::insert($data);
+            if($insertActivityImages)
+                return response()->json(['success'=>true, 'msg' => 'Activity is successfully created.'], $this->successStatus);
+            else return response()->json(['success'=>false, 'msg' => 'Error creating activity images.' ],500);
+        }else return response()->json(['success'=>false, 'msg' => 'Error creating activity.' ],500);
+       
     }
 
     public function update(Request $request){
@@ -98,23 +111,31 @@ class ActivityController extends Controller
                 $validation = ValidateActivity::update($input);
                 if($validation->fails())  
                     return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
-                if ($request->hasFile('image')) {
-                    $image = $request->file('image');
-                    $name = uniqid().'.'.$image->getClientOriginalExtension();
-                    $destinationPath = public_path('/images/activity/logo');
-                    $imagePath = $destinationPath. "/".  $name;
-                    $image->move($destinationPath, $name);
-                    $input['image'] = $name;
-                    $input['original_image_name'] = $image->getClientOriginalName();
-                }
-                unset($input["id"]);
-                $activityUpdated = Activity::where('id', $mainid)->update($input);
+                $activityUpdated = Activity::where('id', $mainid)->update(['title' => $input['title'], 'info' => $input['info'], 'details' => $input['details']]);
                 if($activityUpdated){
-                    $destinationPath = public_path('/images/activity/logo');
-                    if($request->hasFile('image') && file_exists($destinationPath.'/'.$activityCheck->image))
-                        File::delete($destinationPath.'/'.$activityCheck->image);
-                    return response()->json(['success'=>true, 'msg' => 'Activity is successfully updated.'], $this->successStatus);
-                } else return response()->json(['success'=>false, 'msg' => 'Error creating activity.' ],500);
+                    $data = array();
+                    if ($request->has('image') && $request->file('image')) {
+                        $images=array();
+                        $files = $request->file('image');
+                        $i = 0;
+                        foreach($files as $file){
+                            $name = uniqid().'.'.$file->getClientOriginalExtension();
+                            $destinationPath = public_path('/images/activity/logo');
+                            $file->move($destinationPath, $name);
+                            $images[$i]['original_image_name'] = $file->getClientOriginalName();
+                            $images[$i]['image'] = $name;
+                            $images[$i]['activity_id'] = $mainid;
+                            $images[$i]['created_at'] = Carbon::now();
+                            $images[$i]['updated_at'] = Carbon::now();
+                            $i++;
+                        }
+                        $data = $images;
+                    }
+                    $insertActivityImages = ActivityImage::insert($data);
+                    if($insertActivityImages)
+                        return response()->json(['success'=>true, 'msg' => 'Activity is successfully updated.'], $this->successStatus);
+                    else return response()->json(['success'=>false, 'msg' => 'Error updating activity images.' ],500);
+                } else return response()->json(['success'=>false, 'msg' => 'Error updating activity.' ],500);
             }else return response()->json(['success'=>false, 'msg' => 'Activity not found.' ],404);
         }else return response()->json(['success'=>false, 'msg' => 'Invalid data received.' ],403);
     }
@@ -133,5 +154,23 @@ class ActivityController extends Controller
                 return response()->json(['success'=>true, 'msg' => 'Activity is successfully deleted.'], $this->successStatus);
             else return response()->json(['success'=>false, 'msg' => 'Error deleting activity.' ],500);
         }else return response()->json(['success'=>false, 'msg' => 'Error deleting activity.' ],404);
+    }
+
+    public function deleteImage(Request $request){
+        $input = $request->all();
+        $id = $request->input('id');
+        $validation = ValidateActivity::show_or_delete($input);
+        if($validation->fails())  
+            return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
+        $activityCheck = ActivityImage::where('id', $id)->first();
+        if($activityCheck){
+            $deleted = $activityCheck->destroy($id);
+            if($deleted){
+                $destinationPath = public_path('/images/activity/logo');
+                if(file_exists($destinationPath.'/'.$activityCheck->image))
+                    File::delete($destinationPath.'/'.$activityCheck->image);
+                return response()->json(['success'=>true, 'msg' => 'Activity Image is successfully deleted.'], $this->successStatus);
+            }else return response()->json(['success'=>false, 'msg' => 'Error deleting activity image.' ],500);
+        }else return response()->json(['success'=>false, 'msg' => 'Error deleting activity image.' ],404);
     }
 }

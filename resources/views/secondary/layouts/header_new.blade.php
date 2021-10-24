@@ -3,7 +3,7 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="{{ url('/dashboard?status=0') }}" class="logo logo-dark">
+                <a href="{{ url('/v1') }}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{{asset('/secondary/assets/images/logo.png')}}" alt="" height="22">
                     </span>
@@ -12,12 +12,12 @@
                     </span>
                 </a>
 
-                <a href="{{ url('/dashboard?status=0') }}" class="logo logo-light">
+                <a href="{{ url('/v1') }}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{{asset('/secondary/assets/images/short-logo.png')}}" alt="" height="40">
                     </span>
-                    <span class="logo-lg">
-                        <img src="{{asset('/secondary/assets/images/cartzon-logo.png')}}" alt="" height="50">
+                    <span class="logo-lg" style="margin-left: 70px;">
+                        <img src="{{asset('/secondary/assets/images/adventure-logo.png')}}" alt="" height="50">
                     </span>
                 </a>
             </div>
