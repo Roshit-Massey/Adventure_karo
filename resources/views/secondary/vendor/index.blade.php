@@ -1,5 +1,5 @@
 @extends('secondary.layouts.master_new')
-@section('title', 'All Activities')
+@section('title', 'All Vendors')
 @section('container') 
 @section('styles')
 <link rel="stylesheet" type="text/css" href="/secondary/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
@@ -14,16 +14,19 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">All Activities</h4>
+                            <h4 class="card-title">All Vendors</h4>
                             <table id="datatable" class="table table-bordered dt-responsive"
                                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
                                 <thead>
                                     <tr>
                                         <th>Sr. No.</th>
-                                        <!-- <th>Image</th> -->
-                                        <th>Name</th>
-                                        <th>Info</th>
+                                        <th>Profile Image</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Verified</th>
                                         <th>Created At</th>
                                         <th>Updated At</th>
                                         <th>Action</th>
@@ -47,5 +50,5 @@
 <script src="/secondary/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/secondary/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="/secondary/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-<script src="/secondary/js/app/list-activity.js"></script>
+<script src="/secondary/js/app/list-vendor.js"></script>
 @endsection

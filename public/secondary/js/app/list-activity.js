@@ -20,8 +20,8 @@ var load = function(){
         "stateDuration": 0,
         "destroy": true,
         "autoWidth": true,
-        "columnDefs": [ { "orderable": false, "targets": 0 }, { "orderable": false, "targets": 1 }, { "orderable": false, "targets": 3 }, { "orderable": false, "targets": 6 } ],
-        "order": [[2, "desc"], [4, "desc"], [5, "desc"]],
+        "columnDefs": [ { "orderable": false, "targets": 0 },  { "orderable": false, "targets": 2 }, { "orderable": false, "targets": 5 } ],
+        "order": [[1, "desc"], [3, "desc"], [4, "desc"]],
         "colReorder": true,
         "ajax": {
             url: "/api/all-activities",

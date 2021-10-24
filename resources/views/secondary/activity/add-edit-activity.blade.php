@@ -42,9 +42,9 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                    <label class="mb-1" for="filePhoto">Activity Image <span class="danger_color">*</span></label>
+                                    <label class="mb-1" for="filePhoto">Activity Images <span class="danger_color">*</span></label>
                                     <div class="mb-3">
-                                        <input type="file" class="filestyle custom-file-input" name="activityimage" data-buttonname="btn-primary" id="filePhoto">
+                                        <input type="file" class="filestyle custom-file-input" name="activityimage" multiple data-buttonname="btn-primary" id="filePhoto">
                                         <span class="danger_color" id="image-error" ></span>
                                     </div>
                                     </div>
@@ -56,6 +56,10 @@
                                     </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row mb-4" id="activity_images">
+                                
                             </div>
 
                             <div class="mb-0">

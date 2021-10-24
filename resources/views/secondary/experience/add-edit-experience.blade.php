@@ -65,9 +65,9 @@
                             <div class="row mb-4">
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                    <label class="mb-1" for="filePhoto">Experience Image <span class="danger_color">*</span></label>
+                                    <label class="mb-1" for="filePhoto">Experience Images <span class="danger_color">*</span></label>
                                     <div class="mb-3">
-                                        <input type="file" class="filestyle custom-file-input" name="experienceimage" data-buttonname="btn-primary" id="filePhoto">
+                                        <input type="file" class="filestyle custom-file-input" name="experienceimage" multiple data-buttonname="btn-primary" id="filePhoto">
                                         <span class="danger_color" id="image-error" ></span>
                                     </div>
                                     </div>
@@ -80,7 +80,9 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="row mb-4" id="experience_images">
+                                
+                            </div>
                             <div class="mb-0">
                                 <div>
                                     <button type="button" class="btn btn-primary waves-effect waves-light me-1" id="add-button" onclick="addAndUpdateExperience();"> Add </button>

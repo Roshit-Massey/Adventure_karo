@@ -20,8 +20,8 @@ var load = function(){
         "stateDuration": 0,
         "destroy": true,
         "autoWidth": true,
-        "columnDefs": [ { "orderable": false, "targets": 0 }, { "orderable": false, "targets": 1 }, { "orderable": false, "targets": 3 },{ "orderable": false, "targets": 4 }, { "orderable": false, "targets": 5 }, { "orderable": false, "targets": 6 }, { "orderable": false, "targets": 9 } ],
-        "order": [[2, "desc"], [7, "desc"], [8, "desc"]],
+        "columnDefs": [ { "orderable": false, "targets": 0 }, { "orderable": false, "targets": 2 },{ "orderable": false, "targets": 3 }, { "orderable": false, "targets": 4 }, { "orderable": false, "targets": 5 }, { "orderable": false, "targets": 8 } ],
+        "order": [[1, "desc"], [6, "desc"], [7, "desc"]],
         "colReorder": true,
         "ajax": {
             url: "/api/all-experiences",

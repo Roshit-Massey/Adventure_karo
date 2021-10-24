@@ -24,4 +24,9 @@ class Experience extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function experience_images()
+    {
+        return $this->hasMany(ExperienceImage::class);
+    }
 }

@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'phone', 'email', 'password', 'role'
+        'first_name', 'last_name', 'phone', 'email', 'password', 'role', 'profile_image', 'original_image_name', 'is_verify', 'is_social', 'otp'
     ];
 
     /**
@@ -38,4 +38,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function company_information()
+    {
+        return $this->hasOne(CompanyInformation::class, 'vendor_id', 'id');
+    }
+
 }

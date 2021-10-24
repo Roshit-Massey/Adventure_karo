@@ -9,4 +9,9 @@ class Activity extends Model
 {
     use SoftDeletes;
     protected $fillable = [ 'title','info','details','image','original_image_name', 'status'];
+
+    public function activity_images()
+    {
+        return $this->hasMany(ActivityImage::class);
+    }
 }

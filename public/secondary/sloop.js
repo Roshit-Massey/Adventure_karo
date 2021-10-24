@@ -118,6 +118,9 @@ var api = {
         delete: function (data, success, error) {
             return query('/delete-activity', "DELETE", data, 1, success, error)
         },
+        image: function (data, success, error) {
+            return query('/delete-activity-image', "DELETE", data, 1, success, error)
+        },
     },
 
     experience: {
@@ -132,6 +135,9 @@ var api = {
         },
         delete: function (data, success, error) {
             return query('/delete-experience', "DELETE", data, 1, success, error)
+        },
+        image: function (data, success, error) {
+            return query('/delete-experience-image', "DELETE", data, 1, success, error)
         },
     },
 
@@ -165,5 +171,28 @@ var api = {
         },
     },
 
-    
+    vendor: {
+        post: function (data, success, error) {
+            return mediaQuery('/add-vendor', "POST", data, 1, success, error)
+        },
+        show: function (data, success, error) {
+            return query('/show-vendor', "GET", data, 1, success, error)
+        },
+        patch: function (data, success, error) {
+            return mediaQuery('/update-vendor', "POST", data, 1, success, error)
+        },
+        delete: function (data, success, error) {
+            return query('/delete-vendor', "DELETE", data, 1, success, error)
+        },
+        verify: function (data, success, error) {
+            return query('/verify-vendor', "GET", data, 1, success, error)
+        },
+        add: function (data, success, error) {
+            return query('/add-company-vendor', "POST", data, 1, success, error)
+        },
+        update: function (data, success, error) {
+            return query('/update-company-vendor', "POST", data, 1, success, error)
+        },
+    },
+
 }

@@ -37,15 +37,11 @@ var signIn = function(){
             dataType: "json",
             contentType: "application/json",
             success: function (success) {
-                console.log(success);
                 window.location.href = '/v1';
-                // $('#loader-wrap').hide();
             },
             error: function (jqXHR) {
-                console.log(jqXHR);
                 if(jqXHR && jqXHR.responseJSON){
                     $('#error-login').text(jqXHR.responseJSON.msg);
-                    // $('#loader-wrap').hide();
                 }
             }
         })

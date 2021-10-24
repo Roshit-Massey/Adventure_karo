@@ -18,7 +18,7 @@ class CompanyInformation extends Model
     {
     	$country = Country::where('id', $this->country_id)->first();
     	if($country) {
-    		return $country->country_name;
+    		return $country->name;
     	}
     }
 
@@ -26,7 +26,12 @@ class CompanyInformation extends Model
     {
     	$state = State::where('id', $this->state_id)->first();
     	if($state) {
-    		return $state->state_name;
+    		return $state->name;
     	}
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'id', 'vendor_id');
     }
 }

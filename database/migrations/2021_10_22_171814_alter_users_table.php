@@ -18,6 +18,7 @@ class AlterUsersTable extends Migration
             $table->string('otp')->nullable()->after('is_social');
             $table->boolean('is_verify')->nullable()->after('otp')->default(0);
             $table->string('profile_image')->nullable()->after('password');
+            $table->string('original_image_name')->nullable()->after('profile_image');
         });
     }
 
@@ -33,6 +34,7 @@ class AlterUsersTable extends Migration
             $table->dropColumn('otp');
             $table->dropColumn('is_verify');
             $table->dropColumn('profile_image');
+            $table->dropColumn('original_image_name');
         });
     }
 }

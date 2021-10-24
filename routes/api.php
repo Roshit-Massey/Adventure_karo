@@ -39,6 +39,7 @@ Route::post('add-activity','API\ActivityController@store');
 Route::get('show-activity','API\ActivityController@show');
 Route::post('update-activity','API\ActivityController@update');
 Route::delete('delete-activity','API\ActivityController@delete');
+Route::delete('delete-activity-image','API\ActivityController@deleteImage');
 /* --------------------------------------------- End Activity Section --------------------------------------------*/
 
 /* ---------------------------------------------- Start Experience Section -----------------------------------------*/
@@ -47,6 +48,7 @@ Route::post('add-experience','API\ExperienceController@store');
 Route::get('show-experience','API\ExperienceController@show');
 Route::post('update-experience','API\ExperienceController@update');
 Route::delete('delete-experience','API\ExperienceController@delete');
+Route::delete('delete-experience-image','API\ExperienceController@deleteImage');
 /* --------------------------------------------- End Experience Section --------------------------------------------*/
 
 /* ---------------------------------------------- Start Inclusive Section -----------------------------------------*/
@@ -63,6 +65,17 @@ Route::post('add-exclusive','API\InclusiveExclusiveController@save');
 Route::get('show-exclusive','API\InclusiveExclusiveController@get');
 Route::patch('update-exclusive','API\InclusiveExclusiveController@updateOne');
 Route::delete('delete-exclusive','API\InclusiveExclusiveController@deleteOne');
+/* --------------------------------------------- End Exclusive Section --------------------------------------------*/
+
+/* ---------------------------------------------- Start Exclusive Section -----------------------------------------*/
+Route::get('all-vendors','API\VendorController@index');
+Route::post('add-vendor','API\VendorController@store');
+Route::get('show-vendor','API\VendorController@show');
+Route::post('update-vendor','API\VendorController@update');
+Route::delete('delete-vendor','API\VendorController@delete');
+Route::get('verify-vendor','API\VendorController@verify');
+Route::post('add-company-vendor','API\VendorController@insert');
+Route::post('update-company-vendor','API\VendorController@updateOne');
 /* --------------------------------------------- End Exclusive Section --------------------------------------------*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -231,6 +231,8 @@ return [
         'ValidateInclusive' => App\Validator\ValidateInclusive::class,
         'ValidateExclusive' => App\Validator\ValidateExclusive::class,
         'ValidateExperience' => App\Validator\ValidateExperience::class,
+        'ValidateVendor' => App\Validator\ValidateVendor::class,
+        
     ],
 
 ];

@@ -17,4 +17,10 @@ class WebController extends Controller
             return view('secondary.experience.add-edit-experience')->with(array('id' => $id));
         }else return view('secondary.experience.add-edit-experience')->with(array('id' => $id));
     }
+
+    public function vendor(Request $request, $id) {
+        if($id == 0){
+            return view('secondary.vendor.add-edit-vendor')->with(array('id' => $id));
+        }else return view('secondary.vendor.add-edit-vendor')->with(array('id' => $id));
+    }
 }
