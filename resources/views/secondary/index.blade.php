@@ -43,6 +43,15 @@
                                             <input type="password" class="form-control" id="password" placeholder="Enter password">
                                             <span style="color:red;" id="error-password"></span> 
                                         </div>
+
+                                        <div class="mb-3">
+                                            <label class="col-sm-2 col-form-label">Login as</label>
+                                            <select class="form-select" aria-label="Default select example" id="role">
+                                                <option value="admin">Admin</option>
+                                                <option value="vendor">Vendor</option>
+                                            </select>
+                                            <span style="color:red;" id="error-password"></span> 
+                                        </div>
     
                                         <div class="row mt-4">
                                             <div class="col-sm-6">
@@ -83,6 +92,7 @@
         <script src="/secondary/assets/libs/metismenu/metisMenu.min.js"></script>
         <script src="/secondary/assets/libs/node-waves/waves.min.js"></script>
         <script src="/secondary/assets/js/app.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="/app.js"></script>
         <script src="/secondary/js/app/login.js"></script>
     </body>

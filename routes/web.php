@@ -1,5 +1,6 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +11,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 //------------------------------------ Start For Website Routes -------------------------------------//
 Route::get('/', function () {
     return view('primary.welcome');
@@ -25,7 +25,10 @@ Route::group(['middleware'=>['CheckLogin']],function (){
 });
 
 Route::group(['middleware'=>['web', 'CheckAdmin']],function (){ 
-    
+     Route::get('/v1', function () {
+        return view('secondary.dashboard.index');
+    });
+
     Route::get('/v1/activities', function () {
         return view('secondary.activity.index');
     });
@@ -56,18 +59,22 @@ Route::group(['middleware'=>['web', 'CheckAdmin']],function (){
 //------------------------------------ End For Only Admin Routes -------------------------------------//
 
 //------------------------------------ Start For Only Vendor Routes -------------------------------------//
-Route::group(['middleware'=>['CheckVendor']],function (){ 
-   
+Route::group(['middleware'=>['web', 'CheckVendor']],function (){ 
+    Route::get('/v2', function () {
+        return view('secondary.dashboard.index');
+    });
+    Route::get('/v2/add-activity', function () {
+        return view('secondary.activity.index');
+    });
 });
 //------------------------------------ End For Only Vendor Routes -------------------------------------//
 
 //------------------------------------ Start For Both Admin and Vendor Routes -------------------------------------//
-Route::group(['middleware'=>['CheckAdminVendor']],function (){ 
-    Route::get('/v1', function () {
-        return view('secondary.dashboard.index');
-    });
-});
+// Route::group(['middleware'=>['CheckAdminVendor']],function (){ 
+//     // Route::get('/v1', function () {
+//     //     return view('secondary.dashboard.index');
+//     // });
+// });
 //------------------------------------ End For Both Admin and Vendor Routes -------------------------------------//
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

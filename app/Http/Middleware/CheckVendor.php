@@ -6,6 +6,8 @@ use Closure;
 use Cookie;
 use PeterPetrus\Auth\PassportToken;
 use App\User;
+use Session;
+
 class CheckVendor
 {
     /**
@@ -30,9 +32,10 @@ class CheckVendor
                     $revoke = \DB::table('oauth_access_tokens')->where('id',$prop['token_id'])->first();
                     if($revoke && !$revoke->revoked){
                         $user = User::find($token->user_id);
-                        if($user->role == 'vendor')
+                        if($user->role == 'vendor'){
+                            Session::put('role', $user->role);
                             return $next($req);
-                        else abort(401);
+                        }else abort(401);
                     }
                       
                 }

@@ -7,6 +7,7 @@
     <div id="sidebar-menu">
         <!-- Left Menu Start -->
         <ul class="metismenu list-unstyled" id="side-menu">
+        @if(Session::get('role') == 'admin')
             <li>
                 <a href="/v1" class="waves-effect">
                     <i class="mdi mdi-view-dashboard"></i>
@@ -58,6 +59,21 @@
                     <li><a href="/v1/vendor/0">Add New Vendor</a></li>
                 </ul>
             </li>
+            @endif
+            @if(Session::get('role') == 'vendor')
+            <li>
+                <a href="/v2">
+                    <i class="mdi mdi-format-horizontal-align-left"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/v2/add-activity">
+                    <i class="mdi mdi-format-horizontal-align-left"></i>
+                    <span>Exclusives</span>
+                </a>
+            </li>
+            @endif
         </ul>
     </div>
     <!-- Sidebar -->

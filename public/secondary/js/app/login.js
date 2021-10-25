@@ -10,6 +10,7 @@ var clearLoginErrors = function(){
 var validateLogin = function(){
     clearLoginErrors();
     var data = new Object();
+    data.role = $('#role').val();
     data.email = $('#email').val();
     if(data.email.length == 0){
         error = true;
@@ -37,7 +38,12 @@ var signIn = function(){
             dataType: "json",
             contentType: "application/json",
             success: function (success) {
-                window.location.href = '/v1';
+                if(success){
+                    swal({ title: "Logged in successfully", icon: "success", showConfirmButton: false,timer: 1000});  
+                    setTimeout(function() {
+                        window.location.href = (data.role == 'admin' ? '/v1' : '/v2');
+                    }, 1500);
+                }
             },
             error: function (jqXHR) {
                 if(jqXHR && jqXHR.responseJSON){
