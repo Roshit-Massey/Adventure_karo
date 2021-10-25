@@ -63,14 +63,14 @@
             @if(Session::get('role') == 'vendor')
             <li>
                 <a href="/v2">
-                    <i class="mdi mdi-format-horizontal-align-left"></i>
+                    <i class="mdi mdi-view-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li>
                 <a href="/v2/add-activity">
                     <i class="mdi mdi-format-horizontal-align-left"></i>
-                    <span>Exclusives</span>
+                    <span>Add Activity</span>
                 </a>
             </li>
             @endif
