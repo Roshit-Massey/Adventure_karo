@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 /* ---------------------------------------------- Start Login and Logout Section ------------------------------------*/
 Route::group([
     'prefix' => 'auth'
@@ -26,12 +25,15 @@ Route::post('login','Auth\LoginController@index');
 Route::get('logout', 'Auth\LoginController@logout');
 /* ---------------------------------------------- End Login and Logout Section --------------------------------------*/
 
-/* ---------------------------------------------- Start Activity Section -----------------------------------------*/
+/* ------------------------------ Start Countries, State and Cities Section Routes -----------------------------------*/
 Route::get('countries','API\CountryStateCityController@index');
 Route::get('states','API\CountryStateCityController@states');
 Route::get('cities','API\CountryStateCityController@cities');
+/* ------------------------------------ End Countries, State and Cities Section Routes -------------------------------*/
 
-/* --------------------------------------------- End Activity Section --------------------------------------------*/
+
+
+/* ============================================ Start Admin Section Routes ==========================================*/
 
 /* ---------------------------------------------- Start Activity Section -----------------------------------------*/
 Route::get('all-activities','API\ActivityController@index');
@@ -77,6 +79,26 @@ Route::get('verify-vendor','API\VendorController@verify');
 Route::post('add-company-vendor','API\VendorController@insert');
 Route::post('update-company-vendor','API\VendorController@updateOne');
 /* --------------------------------------------- End Exclusive Section --------------------------------------------*/
+
+/* ============================================ End Admin Section Routes ==========================================*/
+
+
+
+
+
+
+/* ============================================ Start Vendor Section Routes ==========================================*/
+
+/* ---------------------------------------------- Start Activity Section -----------------------------------------*/
+Route::get('all-activities','API\ActivityController@index');
+Route::post('add-activity','API\ActivityController@store');
+Route::get('show-activity','API\ActivityController@show');
+Route::post('update-activity','API\ActivityController@update');
+Route::delete('delete-activity','API\ActivityController@delete');
+Route::delete('delete-activity-image','API\ActivityController@deleteImage');
+/* --------------------------------------------- End Activity Section --------------------------------------------*/
+
+/* ============================================ End Vendor Section Routes ==========================================*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

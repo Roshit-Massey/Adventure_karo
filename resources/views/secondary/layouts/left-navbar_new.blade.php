@@ -68,10 +68,14 @@
                 </a>
             </li>
             <li>
-                <a href="/v2/add-activity">
-                    <i class="mdi mdi-format-horizontal-align-left"></i>
-                    <span>Add Activity</span>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="mdi mdi-factory"></i>
+                    <span>Activity</span>
                 </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="/v2/activities">All Activity</a></li>
+                    <li><a href="/v2/experience/0">Add New Activity</a></li>
+                </ul>
             </li>
             @endif
         </ul>

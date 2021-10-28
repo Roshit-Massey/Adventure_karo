@@ -61,20 +61,15 @@ Route::group(['middleware'=>['web', 'CheckAdmin']],function (){
 //------------------------------------ Start For Only Vendor Routes -------------------------------------//
 Route::group(['middleware'=>['web', 'CheckVendor']],function (){ 
     Route::get('/v2', function () {
-        return view('secondary.dashboard.index');
+        return view('secondary.v-portal.index');
     });
+
+    Route::get('/v2/activities', function () {
+        return view('secondary.v-portal.activity.index');
+    });
+
     Route::get('/v2/add-activity', function () {
-        return view('secondary.activity.index');
+        return view('secondary.v-portal.activity.index');
     });
 });
 //------------------------------------ End For Only Vendor Routes -------------------------------------//
-
-//------------------------------------ Start For Both Admin and Vendor Routes -------------------------------------//
-// Route::group(['middleware'=>['CheckAdminVendor']],function (){ 
-//     // Route::get('/v1', function () {
-//     //     return view('secondary.dashboard.index');
-//     // });
-// });
-//------------------------------------ End For Both Admin and Vendor Routes -------------------------------------//
-
-// Route::get('/home', 'HomeController@index')->name('home');
