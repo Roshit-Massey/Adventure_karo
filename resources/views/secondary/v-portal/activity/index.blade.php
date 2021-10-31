@@ -21,9 +21,10 @@
                                 <thead>
                                     <tr>
                                         <th>Sr. No.</th>
-                                        <!-- <th>Image</th> -->
-                                        <th>Name</th>
-                                        <th>Info</th>
+                                        <th>Activity</th>
+                                        <th>Days</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
                                         <th>Created At</th>
                                         <th>Updated At</th>
                                         <th>Action</th>

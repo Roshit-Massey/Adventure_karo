@@ -68,8 +68,6 @@ Route::group(['middleware'=>['web', 'CheckVendor']],function (){
         return view('secondary.v-portal.activity.index');
     });
 
-    Route::get('/v2/add-activity', function () {
-        return view('secondary.v-portal.activity.index');
-    });
+    Route::get('/v2/activity/{id}', 'WebController@vendor_activity');
 });
 //------------------------------------ End For Only Vendor Routes -------------------------------------//

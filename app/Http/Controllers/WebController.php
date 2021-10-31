@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Activity;
+use App\Inclusive;
+use App\Exclusive;
 
 use Illuminate\Http\Request;
 
@@ -22,5 +25,12 @@ class WebController extends Controller
         if($id == 0){
             return view('secondary.vendor.add-edit-vendor')->with(array('id' => $id));
         }else return view('secondary.vendor.add-edit-vendor')->with(array('id' => $id));
+    }
+
+    public function vendor_activity(Request $request, $id) {
+        $activities = Activity::select('id', 'title')->get();
+        $inclusives = Inclusive::select('id', 'title')->get();
+        $exclusives = Exclusive::select('id', 'title')->get();
+        return view('secondary.v-portal.activity.add-edit')->with(array('id' => $id, 'activities' => $activities, 'inclusives' => $inclusives, 'exclusives' => $exclusives));
     }
 }

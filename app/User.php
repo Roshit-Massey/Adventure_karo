@@ -44,4 +44,9 @@ class User extends Authenticatable
         return $this->hasOne(CompanyInformation::class, 'vendor_id', 'id');
     }
 
+    public function vendor_activities()
+    {
+        return $this->hasMany(CompanyInformation::class, 'vendor_id', 'id');
+    }
+
 }

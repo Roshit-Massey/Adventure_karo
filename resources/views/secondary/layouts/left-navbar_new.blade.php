@@ -74,7 +74,7 @@
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="/v2/activities">All Activity</a></li>
-                    <li><a href="/v2/experience/0">Add New Activity</a></li>
+                    <li><a href="/v2/activity/0">Add New Activity</a></li>
                 </ul>
             </li>
             @endif

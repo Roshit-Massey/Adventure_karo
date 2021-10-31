@@ -232,6 +232,7 @@ return [
         'ValidateExclusive' => App\Validator\ValidateExclusive::class,
         'ValidateExperience' => App\Validator\ValidateExperience::class,
         'ValidateVendor' => App\Validator\ValidateVendor::class,
+        'ValidateVendorActivity' => App\Validator\ValidateVendorActivity::class,
         
     ],
 

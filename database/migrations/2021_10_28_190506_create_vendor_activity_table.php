@@ -17,6 +17,12 @@ class CreateVendorActivityTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('vendor_id')->nullable();
             $table->unsignedBigInteger('activity_id')->nullable();
+            $table->json('inclusives')->nullable();
+            $table->json('exclusives')->nullable();
+            $table->json('days')->nullable();
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
+            $table->longText('info')->nullable();
             $table->foreign('vendor_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
             $table->timestamps();

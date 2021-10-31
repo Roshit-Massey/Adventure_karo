@@ -195,4 +195,22 @@ var api = {
         },
     },
 
+    v_activity: {
+        post: function (data, success, error) {
+            return mediaQuery('/v-add-activity', "POST", data, 1, success, error)
+        },
+        show: function (data, success, error) {
+            return query('/v-show-activity', "GET", data, 1, success, error)
+        },
+        patch: function (data, success, error) {
+            return mediaQuery('/v-update-activity', "POST", data, 1, success, error)
+        },
+        delete: function (data, success, error) {
+            return query('/v-delete-activity', "DELETE", data, 1, success, error)
+        },
+        image: function (data, success, error) {
+            return query('/v-delete-activity-image', "DELETE", data, 1, success, error)
+        },
+    },
+
 }

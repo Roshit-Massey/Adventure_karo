@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVendorActivityInclusivesTable extends Migration
+class CreateVendorActivityImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateVendorActivityInclusivesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_activity_inclusives', function (Blueprint $table) {
+        Schema::create('vendor_activity_images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('vendor_activity_id')->nullable();
-            $table->unsignedBigInteger('inclusive_id')->nullable();
+            $table->unsignedBigInteger('vendor_activity_id');
+            $table->string('image');
+            $table->string('original_image_name');
             $table->foreign('vendor_activity_id')->references('id')->on('vendor_activities')->onDelete('cascade');
-            $table->foreign('inclusive_id')->references('id')->on('inclusives')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +31,6 @@ class CreateVendorActivityInclusivesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_activity_inclusives');
+        Schema::dropIfExists('vendor_activity_images');
     }
 }
