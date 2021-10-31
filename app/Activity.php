@@ -14,4 +14,9 @@ class Activity extends Model
     {
         return $this->hasMany(ActivityImage::class);
     }
+
+    public function vendor_activities()
+    {
+        return $this->hasMany(VendorActivity::class);
+    }
 }

@@ -58,9 +58,9 @@ class LoginController extends Controller
         $credentials = request(['email', 'password']);
         $user = User::where(['email' => $request->email, 'role' => $request->role])->first();
         if($user) {
-            if($user->role == 'vendor' && $user->is_verify == 0){
-                return response()->json([ 'success'=>false, 'msg' => 'Profile is not verified, please contact to administrator.' ], 401);
-            }
+            // if($user->role == 'vendor' && $user->is_verify == 0){
+            //     return response()->json([ 'success'=>false, 'msg' => 'Profile is not verified, please contact to administrator.' ], 401);
+            // }
             if ($this->hasTooManyLoginAttempts($request)) {
                 $this->fireLockoutEvent($request);
                 return $this->sendLockoutResponse($request);
