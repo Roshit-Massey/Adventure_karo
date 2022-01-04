@@ -23,6 +23,7 @@ class CheckLogin
         }catch(\Exception $ex){
             return redirect('/auth/login');
         }
+        
         if($header == null){
             return $next($request);         
         }else{

@@ -35,7 +35,7 @@ Route::post('update-activity','V1\ActivityController@update');
 Route::delete('delete-activity','V1\ActivityController@delete');
 Route::delete('delete-activity-image','V1\ActivityController@deleteImage');
 /* --------------------------------------------- End Activity Section --------------------------------------------*/
-
+ 
 /* ---------------------------------------------- Start Experience Section -----------------------------------------*/
 Route::get('all-experiences','V1\ExperienceController@index');
 Route::post('add-experience','V1\ExperienceController@store');
@@ -52,7 +52,7 @@ Route::get('show-inclusive','V1\InclusiveExclusiveController@show');
 Route::patch('update-inclusive','V1\InclusiveExclusiveController@update');
 Route::delete('delete-inclusive','V1\InclusiveExclusiveController@delete');
 /* --------------------------------------------- End Inclusive Section --------------------------------------------*/
-
+ 
 /* ---------------------------------------------- Start Exclusive Section -----------------------------------------*/
 Route::get('all-exclusives','V1\InclusiveExclusiveController@list');
 Route::post('add-exclusive','V1\InclusiveExclusiveController@save');

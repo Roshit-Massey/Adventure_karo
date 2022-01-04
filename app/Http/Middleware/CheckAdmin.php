@@ -21,7 +21,7 @@ class CheckAdmin
         try{
             $header = $req->cookie('adventure_karo');
         }catch(\Exception $ex){
-            return redirect('/auth/login');
+            return "redirect('/auth/login')";
         }
         if($header != null){
             $token = new PassportToken($header);

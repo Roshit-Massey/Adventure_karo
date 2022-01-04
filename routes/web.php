@@ -22,7 +22,7 @@ Route::group(['middleware'=>['CheckLogin']],function (){
     Route::get('/auth/login', function () {
         return view('secondary.index');
     });
-});
+}); 
 
 Route::group(['middleware'=>['web', 'CheckAdmin']],function (){ 
      Route::get('/v1', function () {
@@ -32,7 +32,7 @@ Route::group(['middleware'=>['web', 'CheckAdmin']],function (){
     Route::get('/v1/activities', function () {
         return view('secondary.activity.index');
     });
-
+ 
     Route::get('/v1/activity/{id}', 'WebController@index');
 
     Route::get('/v1/inclusives', function () {

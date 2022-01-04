@@ -15,42 +15,50 @@ class InclusiveExclusiveController extends Controller
 {
     public $successStatus = 200;
 
-    public function index(Request $request) {
-        $requestData = $request; 
-        $columns = array(2 => 'created_at', 1 => 'title', 3 => 'updated_at');
-        $search = $requestData['search']['value'];
-        $data = array();
-        if($search != ""){
-            $totalData = Inclusive::where('title','LIKE',"%{$search}%")->count();
-            $totalFiltered = $totalData;
-            $magazines = Inclusive::where('title','LIKE',"%{$search}%")->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
-        }else {
-            $totalData = Inclusive::count();
-            $totalFiltered = $totalData;
-            $magazines = Inclusive::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
+    // public function index(Request $request) {
+        
+    //     $requestData = $request; 
+    //     $columns = array(2 => 'created_at', 1 => 'title', 3 => 'updated_at');
+    //     $search = $requestData['search']['value'];
+    //     $data = array();
+    //     if($search != ""){
+    //         $totalData = Inclusive::where('title','LIKE',"%{$search}%")->count();
+    //         $totalFiltered = $totalData;
+    //         $magazines = Inclusive::where('title','LIKE',"%{$search}%")->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
+    //     }else {
+    //         $totalData = Inclusive::count();
+    //         $totalFiltered = $totalData;
+    //         $magazines = Inclusive::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
+    //     }
+    //     $totalFiltered = sizeof($magazines);
+    //     if($magazines && sizeof($magazines) > 0){
+    //         $i = $requestData['start'];
+    //         foreach($magazines as $key){
+    //             $nestedData = array();
+    //             $encryptedId = EncryptDecrypt::encrypt($key->id);
+    //             $nestedData[] = $i+1;
+    //             $nestedData[] = ($key->title ? $key->title : 'NA');
+    //             $nestedData[] = date('d-m-Y H:i:s', strtotime($key->created_at));
+    //             $nestedData[] = date('d-m-Y H:i:s', strtotime($key->updated_at));
+    //             $nestedData[] = '<a href="javascript:void(0);" onclick="editInclusive(\''.$encryptedId.'\')"  title="Edit" style="color: #00b8ff;"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="deleteInclusive(\''.$encryptedId.'\')" title="Delete" style="color: #dc3545;"><i class="fas fa-trash-alt"></i></a>';
+    //             $data[] = $nestedData;
+    //             ++$i;
+    //         }
+    //     }
+    //     $json_data = array(
+    //         "draw" => intval($request['draw']), 
+    //         "recordsTotal" => intval($totalData), 
+    //         "recordsFiltered" => intval($totalFiltered),
+    //         "data" => $data  
+    //     );
+    //     echo json_encode($json_data);
+    // }
+    public function index(){
+        $inclisives=Inclusive::all();
+        if($inclisives){
+            return response()->json(['success'=>true,'msg' => 'Inclusive found.', 'data' => $inclisives],200);
         }
-        $totalFiltered = sizeof($magazines);
-        if($magazines && sizeof($magazines) > 0){
-            $i = $requestData['start'];
-            foreach($magazines as $key){
-                $nestedData = array();
-                $encryptedId = EncryptDecrypt::encrypt($key->id);
-                $nestedData[] = $i+1;
-                $nestedData[] = ($key->title ? $key->title : 'NA');
-                $nestedData[] = date('d-m-Y H:i:s', strtotime($key->created_at));
-                $nestedData[] = date('d-m-Y H:i:s', strtotime($key->updated_at));
-                $nestedData[] = '<a href="javascript:void(0);" onclick="editInclusive(\''.$encryptedId.'\')"  title="Edit" style="color: #00b8ff;"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="deleteInclusive(\''.$encryptedId.'\')" title="Delete" style="color: #dc3545;"><i class="fas fa-trash-alt"></i></a>';
-                $data[] = $nestedData;
-                ++$i;
-            }
-        }
-        $json_data = array(
-            "draw" => intval($request['draw']), 
-            "recordsTotal" => intval($totalData), 
-            "recordsFiltered" => intval($totalFiltered),
-            "data" => $data  
-        );
-        echo json_encode($json_data);
+        return response()->json(['error'=>true,'msg' => 'Inclusive not found.'],404);
     }
 
     public function show(Request $request) {
@@ -114,44 +122,53 @@ class InclusiveExclusiveController extends Controller
             else return response()->json(['success'=>false, 'msg' => 'Error deleting inclusive.' ],500);
         }else return response()->json(['success'=>false, 'msg' => 'Error deleting inclusive.' ],404);
     }
+ 
+    // public function list(Request $request) {
+    //     $requestData = $request; 
+    //     $columns = array(2 => 'created_at', 1 => 'title', 3 => 'updated_at');
+    //     $search = $requestData['search']['value'];
+    //     $data = array();
+    //     if($search != ""){
+    //         $totalData = Exclusive::where('title','LIKE',"%{$search}%")->count();
+    //         $totalFiltered = $totalData;
+    //         $magazines = Exclusive::where('title','LIKE',"%{$search}%")->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
+    //     }else {
+    //         $totalData = Exclusive::count();
+    //         $totalFiltered = $totalData;
+    //         $magazines = Exclusive::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
+    //     }
+    //     $totalFiltered = sizeof($magazines);
+    //     if($magazines && sizeof($magazines) > 0){
+    //         $i = $requestData['start'];
+    //         foreach($magazines as $key){
+    //             $nestedData = array();
+    //             $encryptedId = EncryptDecrypt::encrypt($key->id);
+    //             $nestedData[] = $i+1;
+    //             $nestedData[] = ($key->title ? $key->title : 'NA');
+    //             $nestedData[] = date('d-m-Y H:i:s', strtotime($key->created_at));
+    //             $nestedData[] = date('d-m-Y H:i:s', strtotime($key->updated_at));
+    //             $nestedData[] = '<a href="javascript:void(0);" onclick="editExclusive(\''.$encryptedId.'\')"  title="Edit" style="color: #00b8ff;"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="deleteExclusive(\''.$encryptedId.'\')" title="Delete" style="color: #dc3545;"><i class="fas fa-trash-alt"></i></a>';
+    //             $data[] = $nestedData;
+    //             ++$i;
+    //         }
+    //     }
+    //     $json_data = array(
+    //         "draw" => intval($request['draw']), 
+    //         "recordsTotal" => intval($totalData), 
+    //         "recordsFiltered" => intval($totalFiltered),
+    //         "data" => $data  
+    //     );
+    //     echo json_encode($json_data);
+    // }
 
-    public function list(Request $request) {
-        $requestData = $request; 
-        $columns = array(2 => 'created_at', 1 => 'title', 3 => 'updated_at');
-        $search = $requestData['search']['value'];
-        $data = array();
-        if($search != ""){
-            $totalData = Exclusive::where('title','LIKE',"%{$search}%")->count();
-            $totalFiltered = $totalData;
-            $magazines = Exclusive::where('title','LIKE',"%{$search}%")->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
-        }else {
-            $totalData = Exclusive::count();
-            $totalFiltered = $totalData;
-            $magazines = Exclusive::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
+    public function list(){
+        $exclusives=Exclusive::all();
+        if($exclusives){
+            return response()->json(['success'=>true,'msg' => 'Exclusive found.', 'data' => $exclusives],200);
         }
-        $totalFiltered = sizeof($magazines);
-        if($magazines && sizeof($magazines) > 0){
-            $i = $requestData['start'];
-            foreach($magazines as $key){
-                $nestedData = array();
-                $encryptedId = EncryptDecrypt::encrypt($key->id);
-                $nestedData[] = $i+1;
-                $nestedData[] = ($key->title ? $key->title : 'NA');
-                $nestedData[] = date('d-m-Y H:i:s', strtotime($key->created_at));
-                $nestedData[] = date('d-m-Y H:i:s', strtotime($key->updated_at));
-                $nestedData[] = '<a href="javascript:void(0);" onclick="editExclusive(\''.$encryptedId.'\')"  title="Edit" style="color: #00b8ff;"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="deleteExclusive(\''.$encryptedId.'\')" title="Delete" style="color: #dc3545;"><i class="fas fa-trash-alt"></i></a>';
-                $data[] = $nestedData;
-                ++$i;
-            }
-        }
-        $json_data = array(
-            "draw" => intval($request['draw']), 
-            "recordsTotal" => intval($totalData), 
-            "recordsFiltered" => intval($totalFiltered),
-            "data" => $data  
-        );
-        echo json_encode($json_data);
+        return response()->json(['error'=>true,'msg' => 'Exclusive not found.'],404);
     }
+    
 
     public function get(Request $request) {
         $input = $request->all();
