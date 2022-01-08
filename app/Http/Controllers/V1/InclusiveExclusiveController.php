@@ -67,7 +67,7 @@ class InclusiveExclusiveController extends Controller
         $validation = ValidateInclusive::show_or_delete($input);
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
-        $id = EncryptDecrypt::decrypt($id);
+        //$id = EncryptDecrypt::decrypt($id);
         $inclusive = Inclusive::select('title', 'status', 'created_at', 'updated_at')->where('id', $id)->first();
         if($inclusive)
             return response()->json(['success'=>true, 'msg' => 'Inclusive found.', 'data' => $inclusive], $this->successStatus);
@@ -89,10 +89,11 @@ class InclusiveExclusiveController extends Controller
     }
 
     public function update(Request $request){
-        $input = $request->all();
-        $id = $request->input('id');
+         $input = $request->all();
+         $id = $request->input('id');
         if($id){
-            $mainid = EncryptDecrypt::decrypt($id);
+           // $mainid = EncryptDecrypt::decrypt($id);
+            $mainid = $id;
             $validation = ValidateInclusive::update($input);
             if($validation->fails())  
                 return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
@@ -113,7 +114,7 @@ class InclusiveExclusiveController extends Controller
         $validation = ValidateInclusive::show_or_delete($input);
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
-        $id = EncryptDecrypt::decrypt($id);
+        //$id = EncryptDecrypt::decrypt($id);
         $inclusiveCheck = Inclusive::where('id', $id)->first();
         if($inclusiveCheck){
             $deleted = $inclusiveCheck->destroy($id);
@@ -176,7 +177,7 @@ class InclusiveExclusiveController extends Controller
         $validation = ValidateExclusive::show_or_delete($input);
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
-        $id = EncryptDecrypt::decrypt($id);
+        //$id = EncryptDecrypt::decrypt($id);
         $exclusive = Exclusive::select('title', 'status', 'created_at', 'updated_at')->where('id', $id)->first();
         if($exclusive)
             return response()->json(['success'=>true, 'msg' => 'Exclusive found.', 'data' => $exclusive], $this->successStatus);
@@ -201,7 +202,8 @@ class InclusiveExclusiveController extends Controller
         $input = $request->all();
         $id = $request->input('id');
         if($id){
-            $mainid = EncryptDecrypt::decrypt($id);
+           // $mainid = EncryptDecrypt::decrypt($id);
+            $mainid = $id;
             $validation = ValidateExclusive::update($input);
             if($validation->fails())  
                 return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
@@ -225,7 +227,7 @@ class InclusiveExclusiveController extends Controller
         $validation = ValidateExclusive::show_or_delete($input);
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
-        $id = EncryptDecrypt::decrypt($id);
+        //$id = EncryptDecrypt::decrypt($id);
         $exclusiveCheck = Exclusive::where('id', $id)->first();
         if($exclusiveCheck){
             $deleted = $exclusiveCheck->destroy($id);
