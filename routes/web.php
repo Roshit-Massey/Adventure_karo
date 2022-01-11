@@ -18,11 +18,11 @@ Route::get('/', function () {
 //------------------------------------ End For Website Routes ---------------------------------------//
 
 //------------------------------------ Start For Only Admin Routes -------------------------------------//
-Route::group(['middleware'=>['CheckLogin']],function (){ 
+// Route::group(['middleware'=>['CheckLogin']],function (){ 
     Route::get('/auth/login', function () {
         return view('secondary.index');
     });
-}); 
+//}); 
 
 Route::group(['middleware'=>['web', 'CheckAdmin']],function (){ 
      Route::get('/v1', function () {

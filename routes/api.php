@@ -28,7 +28,7 @@ Route::get('cities','V1\CountryStateCityController@cities');
 /* ============================================ Start Admin(V1) Section Routes ==========================================*/
 
 /* ---------------------------------------------- Start Activity Section -----------------------------------------*/
-Route::get('all-activities','V1\ActivityController@index');
+Route::get('all-activities','V1\ActivityController@index'); 
 Route::post('add-activity','V1\ActivityController@store');
 Route::get('show-activity','V1\ActivityController@show');
 Route::post('update-activity','V1\ActivityController@update');

@@ -14,45 +14,53 @@ use Illuminate\Support\Facades\File;
 class ActivityController extends Controller
 {
     public $successStatus = 200;
+ 
+    // public function index(Request $request) {
+    //     $requestData = $request; 
+    //     $columns = array(3 => 'created_at', 1 => 'title', 4 => 'updated_at');
+    //     $search = $requestData['search']['value'];
+    //     $data = array();
+    //     if($search != ""){
+    //         $totalData = Activity::where('title','LIKE',"%{$search}%")->orWhere('details','LIKE',"%{$search}%")->orWhere('info','LIKE',"%{$search}%")->count();
+    //         $totalFiltered = $totalData;
+    //         $magazines = Activity::where('title','LIKE',"%{$search}%")->orWhere('details','LIKE',"%{$search}%")->orWhere('info','LIKE',"%{$search}%")->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
+    //     }else {
+    //         $totalData = Activity::count();
+    //         $totalFiltered = $totalData;
+    //         $magazines = Activity::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
+    //     }
+    //     $totalFiltered = sizeof($magazines);
+    //     if($magazines && sizeof($magazines) > 0){
+    //         $i = $requestData['start'];
+    //         foreach($magazines as $key){
+    //             $nestedData = array();
+    //             $encryptedId = EncryptDecrypt::encrypt($key->id);
+    //             $nestedData[] = $i+1;
+    //             // $nestedData[] = ($key->image ? '<img src="/images/activity/logo/'.$key->image.'" alt="'.$key->title.'" style="width: 100px;"></img>' : 'NA');
+    //             $nestedData[] = ($key->title ? $key->title : 'NA');
+    //             $nestedData[] = ($key->info ? $key->info : 'NA');
+    //             $nestedData[] = date('d-m-Y H:i:s', strtotime($key->created_at));
+    //             $nestedData[] = date('d-m-Y H:i:s', strtotime($key->updated_at));
+    //             $nestedData[] = '<a href="/v1/activity/'.$encryptedId.'"  title="Edit" style="color: #00b8ff;"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="deleteActivity(\''.$encryptedId.'\')" title="Delete" style="color: #dc3545;"><i class="fas fa-trash-alt"></i></a>';
+    //             $data[] = $nestedData;
+    //             ++$i;
+    //         }
+    //     }
+    //     $json_data = array(
+    //         "draw" => intval($request['draw']), 
+    //         "recordsTotal" => intval($totalData), 
+    //         "recordsFiltered" => intval($totalFiltered),
+    //         "data" => $data  
+    //     );
+    //     echo json_encode($json_data);
+    // }
 
-    public function index(Request $request) {
-        $requestData = $request; 
-        $columns = array(3 => 'created_at', 1 => 'title', 4 => 'updated_at');
-        $search = $requestData['search']['value'];
-        $data = array();
-        if($search != ""){
-            $totalData = Activity::where('title','LIKE',"%{$search}%")->orWhere('details','LIKE',"%{$search}%")->orWhere('info','LIKE',"%{$search}%")->count();
-            $totalFiltered = $totalData;
-            $magazines = Activity::where('title','LIKE',"%{$search}%")->orWhere('details','LIKE',"%{$search}%")->orWhere('info','LIKE',"%{$search}%")->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
-        }else {
-            $totalData = Activity::count();
-            $totalFiltered = $totalData;
-            $magazines = Activity::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'])->offset($requestData['start'])->limit($requestData['length'])->get();
+    public function index(){
+        $activities=Activity::all();
+        if($activities){
+            return response()->json(['success'=>true,'msg' => 'Activity found.', 'data' => $activities],200);
         }
-        $totalFiltered = sizeof($magazines);
-        if($magazines && sizeof($magazines) > 0){
-            $i = $requestData['start'];
-            foreach($magazines as $key){
-                $nestedData = array();
-                $encryptedId = EncryptDecrypt::encrypt($key->id);
-                $nestedData[] = $i+1;
-                // $nestedData[] = ($key->image ? '<img src="/images/activity/logo/'.$key->image.'" alt="'.$key->title.'" style="width: 100px;"></img>' : 'NA');
-                $nestedData[] = ($key->title ? $key->title : 'NA');
-                $nestedData[] = ($key->info ? $key->info : 'NA');
-                $nestedData[] = date('d-m-Y H:i:s', strtotime($key->created_at));
-                $nestedData[] = date('d-m-Y H:i:s', strtotime($key->updated_at));
-                $nestedData[] = '<a href="/v1/activity/'.$encryptedId.'"  title="Edit" style="color: #00b8ff;"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="deleteActivity(\''.$encryptedId.'\')" title="Delete" style="color: #dc3545;"><i class="fas fa-trash-alt"></i></a>';
-                $data[] = $nestedData;
-                ++$i;
-            }
-        }
-        $json_data = array(
-            "draw" => intval($request['draw']), 
-            "recordsTotal" => intval($totalData), 
-            "recordsFiltered" => intval($totalFiltered),
-            "data" => $data  
-        );
-        echo json_encode($json_data);
+        return response()->json(['error'=>true,'msg' => 'Activity not found.'],404);
     }
 
     public function show(Request $request) {
@@ -61,7 +69,7 @@ class ActivityController extends Controller
         $validation = ValidateActivity::show_or_delete($input);
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
-        $id = EncryptDecrypt::decrypt($id);
+        
         $activity = Activity::select('id', 'title', 'info', 'details', 'image', 'original_image_name', 'created_at', 'updated_at')->with('activity_images')->where('id', $id)->first();
         if($activity)
             return response()->json(['success'=>true, 'msg' => 'Activity found.', 'data' => $activity], $this->successStatus);
@@ -69,7 +77,7 @@ class ActivityController extends Controller
     }
 
     public function store(Request $request){
-        $input = $request->all();
+       $input = $request->all();
         $validation = ValidateActivity::store($input);
         if($validation->fails())  
             return response()->json([ 'error' => true, 'data' => $validation->errors() ], 403);
@@ -104,7 +112,8 @@ class ActivityController extends Controller
     public function update(Request $request){
         $id = $request->input('id');
         if($id){
-            $mainid = EncryptDecrypt::decrypt($id);
+            //$mainid = EncryptDecrypt::decrypt($id);
+            $mainid = $id;
             $activityCheck = Activity::where('id', $mainid)->first();
             if($activityCheck){
                 $input = $request->all();
